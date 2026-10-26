@@ -1,0 +1,48 @@
+{
+  "name": "Reaction Vid - Beverage Company Draft 2 .mp4",
+  "mimeType": "video/mp4",
+  "capabilities": {
+    "canShare": true
+  },
+  "permissions": [
+    {
+      "type": "anyone",
+      "role": "reader",
+      "allowFileDiscovery": false,
+      "permissionDetails": [
+        {
+          "permissionType": "file",
+          "role": "reader",
+          "inherited": false
+        }
+      ]
+    },
+    {
+      "type": "user",
+      "role": "owner",
+      "permissionDetails": [
+        {
+          "permissionType": "file",
+          "role": "writer",
+          "inherited": true
+        },
+        {
+          "permissionType": "file",
+          "role": "owner",
+          "inherited": false
+        }
+      ]
+    },
+    {
+      "type": "user",
+      "role": "reader",
+      "permissionDetails": [
+        {
+          "permissionType": "file",
+          "role": "reader",
+          "inherited": false
+        }
+      ]
+    }
+  ]
+}

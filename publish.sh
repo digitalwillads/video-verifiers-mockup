@@ -5,6 +5,8 @@ cd "$(dirname "$0")"
 log() { print -r -- "[publish $(date +%H:%M:%S)] $*"; }
 grep -q '<meta name="robots" content="noindex, nofollow">' index.html || { log "ERROR: index.html has no noindex meta"; exit 1; }
 if git diff --quiet -- index.html && git diff --cached --quiet -- index.html; then log "no change to index.html; nothing to publish"; exit 0; fi
+log "checking that anyone with each Drive or Docs link can edit (about 20 s)"
+./check-links.sh index.html || { log "ERROR: a link failed the check above. Fix its sharing (./check-links.sh --fix, after Will approves) or remove the link."; exit 1; }
 log "index.html is $(wc -c < index.html | tr -d ' ') bytes"
 git add index.html
 git commit -q -m "${1:-Publish a new build of the mockup}" -m "Co-Authored-By: Claude Opus 5.5 <noreply@anthropic.com>"

@@ -1,0 +1,70 @@
+{
+  "name": "FacePics for Thumbnails ",
+  "mimeType": "application/vnd.google-apps.folder",
+  "capabilities": {
+    "canShare": true
+  },
+  "permissions": [
+    {
+      "type": "anyone",
+      "role": "reader",
+      "allowFileDiscovery": false,
+      "permissionDetails": [
+        {
+          "permissionType": "file",
+          "role": "reader",
+          "inherited": true
+        }
+      ]
+    },
+    {
+      "type": "user",
+      "role": "writer",
+      "permissionDetails": [
+        {
+          "permissionType": "file",
+          "role": "writer",
+          "inherited": false
+        }
+      ]
+    },
+    {
+      "type": "user",
+      "role": "writer",
+      "permissionDetails": [
+        {
+          "permissionType": "file",
+          "role": "writer",
+          "inherited": false
+        }
+      ]
+    },
+    {
+      "type": "user",
+      "role": "owner",
+      "permissionDetails": [
+        {
+          "permissionType": "file",
+          "role": "writer",
+          "inherited": true
+        },
+        {
+          "permissionType": "file",
+          "role": "owner",
+          "inherited": false
+        }
+      ]
+    },
+    {
+      "type": "user",
+      "role": "reader",
+      "permissionDetails": [
+        {
+          "permissionType": "file",
+          "role": "reader",
+          "inherited": true
+        }
+      ]
+    }
+  ]
+}
