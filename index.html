@@ -5,7 +5,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <meta name="robots" content="noindex, nofollow">
 <title>Video Verifiers</title>
-<meta name="description" content="How the script, research and B-roll verifiers check a video, shown on a made-up example.">
+<meta name="description" content="How the script, research and B-roll verifiers check a video, where each Digital Will video stands, and the plan for the idea verifier.">
 <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='8' fill='%232F5BD3'/%3E%3Cpath d='M9 16.5l4.5 4.5L23 11.5' fill='none' stroke='white' stroke-width='3' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -18,6 +18,7 @@
   --pass:#12764A;--pass-soft:#E3F3EA;
   --fail:#C0372E;--fail-soft:#FBE9E7;
   --flash:#FFF2C2;
+  --warn:#9A6212;--warn-soft:#FBF1DE;
   --r-lg:18px;--r:12px;--r-sm:8px;
   --shadow:0 1px 2px rgba(21,25,34,.05),0 10px 30px rgba(21,25,34,.06);
 }
@@ -195,6 +196,165 @@ button{font:inherit;color:inherit}
 @media (max-width:1000px){.board{grid-template-columns:repeat(2,minmax(0,1fr))}}
 @media (max-width:640px){.board,.side{grid-template-columns:minmax(0,1fr)}}
 
+/* Idea verifier plan */
+.seg .sm{display:none}
+.src{display:inline-flex;align-items:center;height:20px;padding:0 8px;border-radius:999px;font-size:11.5px;font-weight:600;line-height:1;white-space:nowrap;vertical-align:1px}
+.src.real{background:var(--pass-soft);color:var(--pass)}
+.src.words{background:var(--accent-soft);color:var(--accent-ink)}
+.src.est{background:var(--card);color:var(--muted);box-shadow:inset 0 0 0 1px var(--line)}
+.legend .src{min-width:84px;justify-content:center}
+.jump{display:flex;flex-wrap:wrap;gap:6px}
+.jump button{appearance:none;cursor:pointer;padding:6px 12px;border-radius:999px;border:1px solid var(--line);background:var(--card);font-size:13px;font-weight:600;color:var(--muted);transition:border-color .2s,color .2s}
+.jump button:hover{border-color:#C9CFDB;color:var(--ink)}
+.jump button:focus-visible{outline:3px solid rgba(47,91,211,.4);outline-offset:2px}
+.isec{margin-top:40px;scroll-margin-top:16px}
+.isec>h2{font-size:22px;font-weight:700;letter-spacing:-.015em}
+.isec>.sub{margin-top:4px;max-width:72ch;font-size:15px;color:var(--muted)}
+.isec .body{margin-top:14px}
+.note{margin-top:10px;font-size:14px;color:var(--muted)}
+.note .src{margin-right:6px}
+.vp{flex:none;display:inline-flex;align-items:center;height:22px;padding:0 10px;border-radius:999px;font-size:12px;font-weight:700;letter-spacing:.02em;color:#fff}
+.vp.pass{background:var(--pass)}
+.vp.fail{background:var(--fail)}
+.vp.warn{background:var(--warn)}
+.said li,.lrow,.tile,.case,.phase,.flow{background:var(--card);border-radius:var(--r);box-shadow:0 1px 2px rgba(21,25,34,.06),0 6px 18px rgba(21,25,34,.04)}
+
+.said{list-style:none;margin:0;padding:0;display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:12px}
+.said li{padding:16px 18px}
+.said b{display:block;font-weight:600;line-height:1.35}
+.said q{display:block;margin-top:8px;font-size:15px;color:var(--muted)}
+.said .who{display:block;margin-top:6px;font-size:12.5px;font-weight:600;color:var(--faint)}
+
+.look{display:grid;gap:10px}
+.lscale{position:relative;height:16px;margin:0 18px;font-size:11.5px;line-height:16px;color:var(--faint);font-variant-numeric:tabular-nums}
+.lscale span{position:absolute;transform:translateX(-50%);white-space:nowrap}
+.lscale span:first-child{transform:none}
+.lscale span:last-child{transform:translateX(-100%)}
+.lrow{padding:16px 18px}
+.lhead{display:flex;align-items:center;justify-content:space-between;gap:12px}
+.lhead h3{font-size:16px;font-weight:600}
+.cn{font-size:12.5px;font-weight:700;color:var(--faint);font-variant-numeric:tabular-nums}
+.lbar{position:relative;height:28px;margin-top:12px;border-radius:var(--r-sm);background:#EEF1F6;overflow:hidden}
+.lbar i{position:absolute;top:0;bottom:0;left:0;width:0;border-radius:var(--r-sm);transition:width 1.1s cubic-bezier(.2,.7,.2,1);transition-delay:calc(var(--i) * 150ms)}
+.lbar i.pass{background:var(--pass)}
+.lbar i.fail{background:var(--fail)}
+.lbar i.warn{background:var(--warn)}
+.lbar .three{position:absolute;top:0;bottom:0;left:30%;width:2px;margin-left:-1px;background:rgba(21,25,34,.4);z-index:1}
+.lx{position:absolute;top:0;left:calc(var(--w) + 6px);padding:0 6px;background:#EEF1F6;font-size:13px;font-weight:700;line-height:28px;white-space:nowrap;opacity:0;transition:opacity .4s;transition-delay:calc(.8s + var(--i) * 150ms);z-index:2}
+.lbar.inside .lx{left:auto;right:calc(100% - var(--w) + 4px);background:transparent;color:#fff}
+.lbar.none .lx{color:var(--muted);font-weight:600}
+.look.grown .lx{opacity:1}
+.lshort{margin-top:10px;font-weight:600}
+.ldetail{margin-top:2px;font-size:14.5px;color:var(--muted)}
+
+.lead{padding:20px 22px;background:var(--card);border-radius:var(--r-lg);box-shadow:var(--shadow);border-left:4px solid var(--accent)}
+.lead>p:first-child{font-size:17px;font-weight:600;line-height:1.45}
+.lead .call{margin-top:8px;color:var(--muted)}
+.lead .call b{color:var(--ink);font-weight:600}
+.lead .src{margin-left:6px}
+.tiles{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:12px;margin-top:12px}
+.tile{padding:18px 20px}
+.tile h3{font-size:15px;font-weight:700}
+.facts{list-style:none;margin:10px 0 0;padding:0;display:grid;gap:9px}
+.facts li{font-size:15px;line-height:1.45}
+.facts .src{margin-right:7px}
+.facts b{font-weight:600}
+
+.split{display:grid;grid-template-columns:minmax(0,5fr) minmax(0,6fr);gap:16px;align-items:start}
+.flow{list-style:none;counter-reset:f;margin:0;padding:20px 22px 4px;border-radius:var(--r-lg)}
+.flow li{position:relative;display:grid;grid-template-columns:30px minmax(0,1fr);gap:14px;padding-bottom:16px}
+.flow li::before{counter-increment:f;content:counter(f);width:30px;height:30px;border-radius:50%;display:grid;place-items:center;background:var(--accent-soft);color:var(--accent-ink);font-size:13px;font-weight:700}
+.flow li::after{content:"";position:absolute;left:14px;top:34px;bottom:4px;width:2px;background:var(--line)}
+.flow li:last-child::after{display:none}
+.flow b{display:block;font-weight:600;line-height:30px}
+.flow p{font-size:14.5px;color:var(--muted)}
+.icard{background:var(--card);border-radius:var(--r-lg);box-shadow:var(--shadow);overflow:hidden}
+.icard-head{display:flex;align-items:flex-start;justify-content:space-between;gap:12px;padding:18px 20px;background:var(--well);border-bottom:1px solid var(--line)}
+.ifields{margin:0}
+.ifield{display:grid;grid-template-columns:9.5rem minmax(0,1fr);gap:4px 16px;padding:12px 20px;border-top:1px solid var(--line)}
+.ifield:first-child{border-top:0}
+.ifield dt{padding-top:2px;font-size:13px;font-weight:600;color:var(--faint)}
+.ifield dd{margin:0;font-size:15px}
+.ifield dd .src{margin-left:6px}
+.ifield.bad{box-shadow:inset 3px 0 0 var(--fail)}
+.ifield.bad dt{color:var(--fail)}
+.icard-verdict{padding:14px 20px;border-top:1px solid var(--line);font-size:15px;font-weight:500;color:var(--fail)}
+
+.rcols{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:12px}
+.rbox{padding:16px 20px 6px;background:var(--card);border-radius:var(--r-lg);box-shadow:var(--shadow)}
+.rbox h3{display:flex;align-items:center;gap:10px;padding-bottom:10px;font-size:15px;font-weight:600;color:var(--muted)}
+.prule{padding:12px 0;border-top:1px solid var(--line)}
+.prule .t{display:flex;align-items:baseline;gap:10px}
+.prule .t strong{font-weight:600}
+.prule .n{min-width:1.3em;font-size:13px;font-weight:700;color:var(--faint);font-variant-numeric:tabular-nums}
+.prule .d,.prule .rcase{margin-left:calc(1.3em + 10px)}
+.prule .d{margin-top:2px;font-size:15px;color:var(--muted)}
+.prule .rcase{margin-top:6px;font-size:14px}
+.prule .rcase .src{margin-right:6px}
+
+.clegend{display:flex;flex-wrap:wrap;gap:8px 18px;font-size:13.5px;color:var(--muted)}
+.clegend span{display:inline-flex;align-items:center;gap:6px}
+.dot{display:inline-block;width:10px;height:10px;border-radius:50%}
+.dot.pass{background:var(--pass)}
+.dot.fail{background:var(--fail)}
+.dot.warn{background:var(--warn)}
+.dot.rep{box-shadow:inset 0 0 0 1.5px var(--faint)}
+.dot.open{background:#D5DAE3}
+.chips{list-style:none;margin:12px 0 0;padding:0;display:flex;flex-wrap:wrap;gap:6px}
+.chip{display:inline-flex;align-items:baseline;gap:6px;max-width:100%;padding:5px 11px;border-radius:999px;background:var(--card);border:1px solid var(--line);font-size:13.5px;line-height:1.35;overflow-wrap:anywhere}
+.chip .cn{font-size:11.5px}
+.chip .eq{font-size:12px;font-weight:600}
+.chip.st-pass{background:var(--pass-soft);border-color:transparent;color:var(--pass)}
+.chip.st-fail{background:var(--fail-soft);border-color:transparent;color:var(--fail)}
+.chip.st-warn{background:var(--warn-soft);border-color:transparent;color:var(--warn)}
+.chip.st-pass .cn,.chip.st-fail .cn,.chip.st-warn .cn{color:inherit;opacity:.75}
+.chip.st-rep{background:transparent;border-style:dashed;color:var(--muted)}
+
+.ladder{list-style:none;margin:14px 0 0;padding:0;display:grid;gap:10px}
+.ladder li{display:grid;grid-template-columns:8rem minmax(0,1fr);gap:2px 14px;font-size:15px}
+.ladder .lv{padding-top:2px;font-size:13px;font-weight:600;color:var(--faint)}
+.phases{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:12px;margin-top:12px}
+.phase{display:flex;flex-direction:column;gap:8px;padding:18px;border-top:3px solid var(--accent)}
+.phase .when{font-size:13px;font-weight:600;color:var(--accent-ink)}
+.phase h3{font-size:16px;font-weight:700}
+.phase p{font-size:14.5px;color:var(--muted)}
+.phase .g{color:var(--ink)}
+.phase .g b{font-weight:600}
+.after{margin-top:14px;font-size:15px;color:var(--muted)}
+
+.cases{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:12px}
+.case{padding:18px 20px}
+.case h3{font-size:16px;font-weight:700}
+.case .why{margin-top:4px;font-size:14.5px;color:var(--muted)}
+.case ul{list-style:none;margin:12px 0 0;padding:0;display:grid;gap:6px}
+.case li{padding:8px 12px;border-radius:var(--r-sm);border:1px solid var(--line);font-size:14.5px}
+.case li.pick{background:var(--accent-soft);border-color:transparent;color:var(--accent-ink);font-weight:600}
+.case .pickwhy{margin-top:10px;font-size:14.5px}
+.case .pickwhy b{font-weight:600}
+
+.can,.whenlist{list-style:none;margin:10px 0 0;padding:0}
+.can li{display:flex;align-items:center;justify-content:space-between;gap:12px;padding:10px 0;border-top:1px solid var(--line);font-size:15px}
+.perm{flex:none;padding:2px 10px;border-radius:999px;font-size:12px;font-weight:700}
+.perm.alone{background:var(--pass-soft);color:var(--pass)}
+.perm.asks{background:var(--warn-soft);color:var(--warn)}
+.perm.never{background:var(--fail-soft);color:var(--fail)}
+.whenlist li{padding:10px 0;border-top:1px solid var(--line);font-size:15px;color:var(--muted)}
+
+@media (max-width:1000px){.phases{grid-template-columns:repeat(2,minmax(0,1fr))}}
+@media (max-width:900px){
+  .said{grid-template-columns:repeat(2,minmax(0,1fr))}
+  .split{grid-template-columns:minmax(0,1fr)}
+}
+@media (max-width:640px){
+  .seg .lg{display:none}
+  .seg .sm{display:inline}
+  .said,.tiles,.rcols,.phases,.cases{grid-template-columns:minmax(0,1fr)}
+  .ifield,.ladder li{grid-template-columns:minmax(0,1fr)}
+  .lrow,.tile,.case,.rbox,.flow{padding-left:16px;padding-right:16px}
+  .lscale{margin:0 16px}
+  .ifield,.icard-head,.icard-verdict{padding-left:16px;padding-right:16px}
+}
+
 @media (prefers-reduced-motion:reduce){
   *,*::before,*::after{animation:none!important;transition:none!important}
 }
@@ -205,7 +365,8 @@ button{font:inherit;color:inherit}
 <div class="wrap viewbar">
   <div class="seg" role="tablist" aria-label="Views">
     <button type="button" role="tab" data-view="verifiers" aria-selected="true">Verifiers</button>
-    <button type="button" role="tab" data-view="pipeline" aria-selected="false">Production pipeline</button>
+    <button type="button" role="tab" data-view="pipeline" aria-selected="false"><span class="lg">Production pipeline</span><span class="sm">Pipeline</span></button>
+    <button type="button" role="tab" data-view="ideas" aria-selected="false"><span class="lg">Idea verifier plan</span><span class="sm">Idea plan</span></button>
   </div>
 </div>
 
@@ -368,6 +529,303 @@ button{font:inherit;color:inherit}
     </div>
 
     <p class="foot">Sources: the “Youtube - Digital Will Ads” folder in Google Drive and the public channel, read October 26, 2026.</p>
+  </div>
+</div>
+
+<div id="view-ideas" hidden>
+  <header class="wrap top">
+    <div>
+      <h1>Idea verifier</h1>
+      <p class="lede">It turns the 74 industries into a short list of video ideas that people already watch. It runs before anyone writes or films. The evidence verifier comes next.</p>
+    </div>
+    <div class="legend">
+      <div><span class="src real">Real</span><span>Measured. The source is named.</span></div>
+      <div><span class="src words">Your words</span><span>Said by Will or Romina, or in Will’s note.</span></div>
+      <div><span class="src est">Estimate</span><span>Claude’s estimate. Not measured.</span></div>
+    </div>
+  </header>
+
+  <div class="wrap">
+    <nav class="jump" id="jump" aria-label="Sections of the plan">
+      <button type="button" data-jump="i-call">The call</button>
+      <button type="button" data-jump="i-look">First look</button>
+      <button type="button" data-jump="i-case">Business case</button>
+      <button type="button" data-jump="i-rules">Rules</button>
+      <button type="button" data-jump="i-list">74 industries</button>
+      <button type="button" data-jump="i-plan">Plan</button>
+      <button type="button" data-jump="i-calls">Your calls</button>
+    </nav>
+
+    <section class="isec" id="i-call" aria-labelledby="i-call-h">
+      <h2 id="i-call-h">What we said on Oct 26</h2>
+      <p class="sub">From the call recording. The quotes come from the auto transcript, lightly cleaned.</p>
+      <ul class="said body">
+        <li><b>It comes first.</b><q>Having the right video is much more important than anything.</q><span class="who">Will</span></li>
+        <li><b>It starts from our ideas, then finds new ones.</b><q>Make a verifier for finding new ideas.</q><span class="who">Will</span></li>
+        <li><b>Research is built in. It studies other channels.</b><q>The formats that work and the outliers.</q><span class="who">Romina</span></li>
+        <li><b>It ends with a pick and an angle.</b><q>This is the one that we’re going to go for.</q><span class="who">Will</span></li>
+        <li><b>The evidence verifier does the second research.</b><q>The story and the hook and any supporting data.</q><span class="who">Romina</span></li>
+        <li><b>Production waits.</b><q>Not get into the production side of things.</q><span class="who">Will</span></li>
+        <li><b>Each channel gets its own verifiers. A channel works when a viewer watches a second video.</b><q>If someone watches one of your videos and then they watch another.</q><span class="who">Will, from a YouTube consultant</span></li>
+        <li><b>Start from what we have: our calls, ad accounts and client stories.</b><q>The ideas might already be there.</q><span class="who">Romina</span></li>
+        <li><b>After the call, the machine is for the organic channel. It starts from the 74 lines.</b><q>We want to do the 74 lines of industry.</q><span class="who">Will, after the call</span></li>
+      </ul>
+    </section>
+
+    <section class="isec" id="i-look" aria-labelledby="i-look-h">
+      <h2 id="i-look-h">First look: 4 industries</h2>
+      <p class="sub">One YouTube search each, read Oct 26, 2026. Each bar is the best video’s views against its channel’s average video. Only channels with 1,000 or more subscribers count. The bar to pass is 3x.</p>
+      <div class="look body" id="look"></div>
+      <p class="note"><span class="src est">Estimate</span>The 3x bar and the 1,000-subscriber floor are first picks. Phase 2 tests them against your marks.</p>
+    </section>
+
+    <section class="isec" id="i-case" aria-labelledby="i-case-h">
+      <h2 id="i-case-h">The business case</h2>
+      <div class="lead body">
+        <p>Build the idea verifier first. Four searches already showed that our first idea is taken and that Bail Bonds has proof.</p>
+        <p class="call"><b>Claude’s call:</b> build it. Start with 5 industries, then run all 74.</p>
+      </div>
+      <div class="tiles">
+        <article class="tile">
+          <h3>The problem today</h3>
+          <ul class="facts">
+            <li><span class="src real">Real</span>No video reaches people on its own yet. The 2 live videos have 64 and 15 views.</li>
+            <li><span class="src real">Real</span>Our first idea from the call is taken. The Hustle made it in Dec 2024 and got 11,095 views, 0.1x its average video.</li>
+            <li><span class="src real">Real</span>The note holds 74 industry lines. None has research yet. 3 lines overlap an earlier line.</li>
+            <li><span class="src words">Your words</span>“Having the right video is much more important than anything.”</li>
+          </ul>
+        </article>
+        <article class="tile">
+          <h3>What it does</h3>
+          <ul class="facts">
+            <li><span class="src words">Your words</span>It researches each industry, writes ideas, checks them and says which one we make.</li>
+            <li><span class="src est">Estimate</span>It writes 3 idea cards for each industry: about 220 cards.</li>
+            <li><span class="src words">Your words</span>The picks go to the evidence verifier for the story, the hook and the proof.</li>
+          </ul>
+        </article>
+        <article class="tile">
+          <h3>Without it</h3>
+          <ul class="facts">
+            <li><span class="src est">Estimate</span>We pick ideas by feel. A video gets a script, a shoot and an edit before anyone checks that people watch the topic.</li>
+            <li><span class="src real">Real</span>By feel, the first video would be personal injury, the weakest of the 4.</li>
+          </ul>
+        </article>
+        <article class="tile">
+          <h3>With it</h3>
+          <ul class="facts">
+            <li><span class="src est">Estimate</span>Each idea that moves on has proof that people watch it, its own angle and a next video.</li>
+            <li><span class="src est">Estimate</span>Romina’s research hours go to the ideas that passed, not to all 74.</li>
+          </ul>
+        </article>
+        <article class="tile">
+          <h3>What it is worth</h3>
+          <ul class="facts">
+            <li><span class="src est">Estimate</span>Not measured yet. The first measure is the views of the first 3 videos from its picks.</li>
+            <li><span class="src words">Your words</span>Viewers who reach the site get remarketing ads that send them to the Digital Will channel.</li>
+          </ul>
+        </article>
+        <article class="tile">
+          <h3>What it costs</h3>
+          <ul class="facts">
+            <li><span class="src real">Real</span>YouTube data is free up to 10,000 units a day. One search costs 100 units.</li>
+            <li><span class="src est">Estimate</span>One industry takes about 400 units, so about 25 industries a day. All 74 take 3 days.</li>
+            <li><span class="src est">Estimate</span>Phase 2 measures the AI cost on 5 industries before the run on all 74.</li>
+            <li><span class="src est">Estimate</span>Romina needs about 2 hours to mark the first 15 cards.</li>
+          </ul>
+        </article>
+        <article class="tile">
+          <h3>How we will know it works</h3>
+          <ul class="facts">
+            <li><span class="src est">Estimate</span>Backtest on 20 real videos: 10 that beat 3x their channel’s average and 10 that did not. It must pass 8 winners and fail 7 losers without seeing their views.</li>
+            <li><span class="src est">Estimate</span>On the first 15 cards, it agrees with your marks on 12 or more.</li>
+            <li><span class="src real">Real</span>After launch, each of the first 3 videos beats 64 views in 28 days with no paid views. 64 is our best video so far.</li>
+          </ul>
+        </article>
+        <article class="tile">
+          <h3>Risks and guards</h3>
+          <ul class="facts">
+            <li><b>It copies other channels.</b> A rule fails a card with a top video’s title or angle. The topic can be the same: “Take adjacent ideas and then steal it when it goes well.” (your note)</li>
+            <li><b>It names a client.</b> A rule checks each card against the CRM client list.</li>
+            <li><b>It makes up a number.</b> Every number links to its source. An AI answer is never a source.</li>
+            <li><b>A topic hurts the brand.</b> The brand rule asks you first.</li>
+            <li><b>AI judges AI.</b> Your marks and the backtest test it on real results.</li>
+          </ul>
+        </article>
+      </div>
+    </section>
+
+    <section class="isec" id="i-how" aria-labelledby="i-how-h">
+      <h2 id="i-how-h">How one industry becomes an idea</h2>
+      <div class="split body">
+        <ol class="flow">
+          <li><div><b>Take an industry.</b><p>From the 74 lines, or a new line that you or Romina add.</p></div></li>
+          <li><div><b>Research it.</b><p>YouTube: the top videos and the outliers. Reddit: the questions people ask. Our calls and ad accounts: what we know first-hand, read only. Ad costs: what one click costs.</p></div></li>
+          <li><div><b>Write 3 idea cards.</b><p>Each card holds the fields in the example.</p></div></li>
+          <li><div><b>Check each card.</b><p>Code rules first, then AI judgments. A fail goes back with the fix.</p></div></li>
+          <li><div><b>Rank the passes.</b><p>Proof that people watch it first, then curiosity, then fit.</p></div></li>
+          <li><div><b>You and Romina pick.</b><p>“Some of them are interesting, some of them are not.” Your picks also teach it.</p></div></li>
+          <li><div><b>Hand off to the evidence verifier.</b><p>It finds the story, the hook and the proof for the script.</p></div></li>
+        </ol>
+        <article class="icard" aria-labelledby="icard-h">
+          <div class="icard-head">
+            <div>
+              <h3 class="ex-title" id="icard-h">Example card: #1 Personal Injury Lawyers</h3>
+              <p class="ex-sub">The answer comes from the call. The checks use the real search.</p>
+            </div>
+            <span class="vp fail">FAIL</span>
+          </div>
+          <dl class="ifields">
+            <div class="ifield"><dt>Question</dt><dd>Why are personal injury lawyers on every billboard?</dd></div>
+            <div class="ifield"><dt>Obvious guess</dt><dd>To catch drivers right after a crash.<span class="src words">Your words</span></dd></div>
+            <div class="ifield"><dt>Answer to prove</dt><dd>One case pays so much that a firm can pay $100 to $500 for one click.<span class="src words">Your words</span></dd></div>
+            <div class="ifield bad"><dt>People watch it</dt><dd>1.7x. The bar is 3x.<span class="src real">Real</span></dd></div>
+            <div class="ifield bad"><dt>Angle</dt><dd>Taken. The Hustle made this video in Dec 2024.<span class="src real">Real</span></dd></div>
+            <div class="ifield"><dt>Next video</dt><dd>A Google Ads teardown on the Digital Will channel.<span class="src words">Your words</span></dd></div>
+            <div class="ifield"><dt>Title and thumbnail</dt><dd>“Why Lawyers Buy Every Billboard”, with a wall of billboards and a $500 price tag.<span class="src est">Estimate</span></dd></div>
+          </dl>
+          <p class="icard-verdict">2 of 10 rules fail. The card goes back. The fix: find an angle that the top videos skip, or move to the next industry.</p>
+        </article>
+      </div>
+    </section>
+
+    <section class="isec" id="i-rules" aria-labelledby="i-rules-h">
+      <h2 id="i-rules-h">The 10 rules</h2>
+      <p class="sub">“A verifier really is a prompt with teeth.” (Will) Code rules run first. AI judgments run last. A card must pass all 10.</p>
+      <div class="rcols body">
+        <section class="rbox" aria-label="Code rules">
+          <h3><span class="kind">Code</span>The same answer every time</h3>
+          <div class="prule"><div class="t"><span class="n">1</span><strong>The card is complete</strong></div><p class="d">Every field is filled. Each number has a source link.</p></div>
+          <div class="prule"><div class="t"><span class="n">2</span><strong>Not a repeat</strong></div><p class="d">Not the same industry or question as another card, or as a video we made.</p><p class="rcase"><span class="src real">Real</span>#25 Financial Services repeats #11.</p></div>
+          <div class="prule"><div class="t"><span class="n">3</span><strong>People watch it</strong></div><p class="d">A video on the same question got 3x or more its channel’s average. Only channels with 1,000 or more subscribers count.</p><p class="rcase"><span class="src real">Real</span>Bail Bonds passes at 9.8x. Personal Injury fails at 1.7x.</p></div>
+          <div class="prule"><div class="t"><span class="n">4</span><strong>Not a copy</strong></div><p class="d">The title and the angle differ from each top video. The topic can be the same.</p><p class="rcase"><span class="src real">Real</span>The Hustle’s personal injury video.</p></div>
+          <div class="prule"><div class="t"><span class="n">5</span><strong>No client named</strong></div><p class="d">No client from the CRM is in the card, unless the client said yes in writing.</p><p class="rcase"><span class="src words">Your words</span>“I can’t roast all my clients.”</p></div>
+        </section>
+        <section class="rbox" aria-label="AI judgments">
+          <h3><span class="kind ai">AI judgment</span>Meaning and taste</h3>
+          <div class="prule"><div class="t"><span class="n">6</span><strong>A stranger clicks</strong></div><p class="d">Someone outside the industry wants the answer.</p><p class="rcase"><span class="src words">Your words</span>“I might click on it even though I’m not one of those people.” (Romina)</p></div>
+          <div class="prule"><div class="t"><span class="n">7</span><strong>The answer surprises</strong></div><p class="d">The real answer is not the obvious guess.</p><p class="rcase"><span class="src words">Your words</span>Billboards: not the crash, the money.</p></div>
+          <div class="prule"><div class="t"><span class="n">8</span><strong>Will is the authority</strong></div><p class="d">The answer is about how the industry sells, which DWA knows first-hand.</p><p class="rcase"><span class="src words">Your words</span>“Positioning it in a way where obviously you’re going to be like the authority.” (Romina)</p></div>
+          <div class="prule"><div class="t"><span class="n">9</span><strong>Leads to the next video</strong></div><p class="d">The card names a next video that this viewer wants.</p><p class="rcase"><span class="src words">Your words</span>The consultant’s rule: one video, then another.</p></div>
+          <div class="prule"><div class="t"><span class="n">10</span><strong>Safe for the brand</strong></div><p class="d">Nothing that hurts the brand or that YouTube ads may limit. If in doubt, it asks you.</p><p class="rcase"><span class="src real">Real</span>MyPillow: the top videos are news about the CEO.</p></div>
+        </section>
+      </div>
+    </section>
+
+    <section class="isec" id="i-list" aria-labelledby="i-list-h">
+      <h2 id="i-list-h">The 74 industries</h2>
+      <p class="sub">From Will’s “Youtube” note, in its order. People’s names are left off this page. The spelling is fixed in 3 lines.</p>
+      <div class="clegend body" id="clegend"></div>
+      <ul class="chips" id="chips"></ul>
+    </section>
+
+    <section class="isec" id="i-plan" aria-labelledby="i-plan-h">
+      <h2 id="i-plan-h">The plan</h2>
+      <div class="lead body">
+        <p>Goal: 20 ideas that pass all 10 rules, ranked, by Nov 20, 2026. You and Romina pick the top 3 for the evidence verifier.<span class="src est">Estimate</span></p>
+        <ol class="ladder">
+          <li><span class="lv">Will’s goal</span><span>Close clients outside Upwork. “Upwork is slowly shrinking.”<span class="src words">Your words</span></span></li>
+          <li><span class="lv">The channels</span><span>The industry channel casts a wide net. Site visitors get remarketing ads to the Digital Will channel, where the views build trust.<span class="src words">Your words</span></span></li>
+          <li><span class="lv">This verifier</span><span>20 ranked ideas give the industry channel its first videos.<span class="src est">Estimate</span></span></li>
+        </ol>
+      </div>
+      <div class="phases">
+        <article class="phase">
+          <p class="when">Phase 1, Oct 26 to 29</p>
+          <h3>Agree on the rules</h3>
+          <p>You and Romina read this plan. Romina brings her plan to the Thursday call at noon. Where they differ, her plan wins: “your plan is the more important plan.”</p>
+          <p class="g"><b>Gate:</b> you both say yes to the 10 rules and the card.</p>
+          <p class="g"><b>Step to the goal:</b> the rules are set.</p>
+        </article>
+        <article class="phase">
+          <p class="when">Phase 2, Oct 30 to Nov 5</p>
+          <h3>Five industries by hand</h3>
+          <p>Claude researches 5 industries: the 4 above and 1 that Romina picks. It writes 15 cards. You and Romina mark each card “make” or “skip”.</p>
+          <p class="g"><b>Gate:</b> 3 or more cards marked “make”.</p>
+          <p class="g"><b>Step to the goal:</b> the first ideas, and the test cases.</p>
+        </article>
+        <article class="phase">
+          <p class="when">Phase 3, Nov 5 to 13</p>
+          <h3>Build the verifier</h3>
+          <p>The research step and the 10 rules go into the verifiers repo through the change gate. You read the draft rule by rule first.</p>
+          <p class="g"><b>Gate:</b> it agrees with 12 of the 15 marks, and the backtest passes.</p>
+          <p class="g"><b>Step to the goal:</b> a verifier we can trust.</p>
+        </article>
+        <article class="phase">
+          <p class="when">Phase 4, Nov 13 to 20</p>
+          <h3>Run all 74</h3>
+          <p>It runs on the rest, about 25 industries a day. It ranks the passes.</p>
+          <p class="g"><b>Gate:</b> 20 ideas pass. You and Romina pick 3.</p>
+          <p class="g"><b>Step to the goal:</b> the goal.</p>
+        </article>
+      </div>
+      <p class="after">After that, the 3 picks go to the evidence verifier, which gets its own plan. Each video’s views at 28 days come back as a real case.</p>
+    </section>
+
+    <section class="isec" id="i-calls" aria-labelledby="i-calls-h">
+      <h2 id="i-calls-h">Your calls</h2>
+      <p class="sub">Open questions. Each one shows Claude’s pick. The Thursday call can settle them.</p>
+      <div class="cases body">
+        <article class="case">
+          <h3>Who picks the ideas?</h3>
+          <p class="why">The pick decides what gets filmed.</p>
+          <ul><li>You</li><li class="pick">Romina, for the first 2 rounds</li><li>The verifier alone</li></ul>
+          <p class="pickwhy"><b>Claude’s pick:</b> Romina, for the first 2 rounds. Her picks teach it. Then it picks alone, and she can overrule it.</p>
+        </article>
+        <article class="case">
+          <h3>Where does the new channel live?</h3>
+          <p class="why">A tool can read a channel’s click rate and watch time only through an account that can see the channel. The Digital Will channel is not on will@digitalwillads.com.</p>
+          <ul><li class="pick">A new channel owned by will@digitalwillads.com</li><li>Romina’s account</li><li>The Digital Will channel</li></ul>
+          <p class="pickwhy"><b>Claude’s pick:</b> a new channel owned by will@digitalwillads.com, with Romina as a manager.</p>
+        </article>
+        <article class="case">
+          <h3>Topics that can hurt the brand</h3>
+          <p class="why">Some lines touch politics, guns, payday loans or abuse.</p>
+          <ul><li class="pick">Research them, and ask you before a card moves on</li><li>Skip them</li><li>Treat them like the rest</li></ul>
+          <p class="pickwhy"><b>Claude’s pick:</b> research them, and ask you first.</p>
+        </article>
+        <article class="case">
+          <h3>How to measure “people watch it”</h3>
+          <p class="why">The first look used the channel’s average video. One viral video can skew an average.</p>
+          <ul><li>The channel’s average video</li><li class="pick">The median of the channel’s last 30 videos</li><li>VidIQ’s outlier score, by hand</li></ul>
+          <p class="pickwhy"><b>Claude’s pick:</b> the median of the last 30 videos. It costs 2 more units for each channel.</p>
+        </article>
+        <article class="case">
+          <h3>How many ideas for each industry?</h3>
+          <p class="why">More cards find more winners, and take more of Romina’s time.</p>
+          <ul><li>1</li><li class="pick">3</li><li>5</li></ul>
+          <p class="pickwhy"><b>Claude’s pick:</b> 3, about 220 cards for the 74 lines.</p>
+        </article>
+      </div>
+    </section>
+
+    <section class="isec" id="i-limits" aria-labelledby="i-limits-h">
+      <h2 id="i-limits-h">Limits</h2>
+      <div class="tiles body">
+        <section class="tile" aria-labelledby="i-can-h">
+          <h3 id="i-can-h">What it can do</h3>
+          <ul class="can">
+            <li><span>Read YouTube, Reddit and the web</span><span class="perm alone">Alone</span></li>
+            <li><span>Read our calls, the CRM and the ad accounts, with no changes</span><span class="perm alone">Alone</span></li>
+            <li><span>Write idea cards to its own list</span><span class="perm alone">Alone</span></li>
+            <li><span>Pay for data</span><span class="perm asks">Asks you</span></li>
+            <li><span>Name a client without a written yes</span><span class="perm never">Never</span></li>
+            <li><span>Post, upload, email or message anyone</span><span class="perm never">Never</span></li>
+            <li><span>Change an ad account</span><span class="perm never">Never</span></li>
+          </ul>
+        </section>
+        <section class="tile" aria-labelledby="i-when-h">
+          <h3 id="i-when-h">When it runs</h3>
+          <ul class="whenlist">
+            <li>You or Romina add an industry or an idea. It checks that line.</li>
+            <li>Someone asks it to check one idea.</li>
+            <li>No clock at first. Your rule: “Right now all the verifiers will run manually when an agent reaches for them.”</li>
+            <li>Later, a video turns 28 days old, and its views come back as a real case.</li>
+          </ul>
+        </section>
+      </div>
+    </section>
+
+    <p class="foot">Plan for review, October 26, 2026. Sources: the Oct 26 call recording; Will’s “Youtube” note in Apple Notes, started July 3, 2025; the YouTube Data API, read October 26, 2026 at about 5:40 PM ET, with one search for each industry and 15 results each. A channel’s average video is its total views divided by its number of videos.</p>
   </div>
 </div>
 
@@ -827,11 +1285,143 @@ button{font:inherit;color:inherit}
   buildSteps();
   renderPanel(true);
 
-  // ---- Views: verifiers and the production pipeline ----
-  const views = { verifiers: $('#view-verifiers'), pipeline: $('#view-pipeline') };
+  // ---- Idea verifier plan ----
+  // The 74 industry lines of Will's "Youtube" note (Apple Notes), in its order. People's names are left off
+  // this public page, and the spelling is fixed in 3 lines (Cannabis, SaaS, Psychologists / Counselors).
+  const INDUSTRIES = [
+    'Personal Injury Lawyers', 'Ecommerce (Google Shopping + Display)',
+    'Drugs and that billionaire I found who built an ad network', 'Cannabis Industry',
+    'Trucking Industry (DOT Registration) / government registration', 'ED Clinics (Radio)',
+    'Truth Social (Trump) / X (Elon)', 'Regional Theatre Productions', 'Computer Games (Steam)', 'Real Estate',
+    'Financial Services (wealth managers)', 'Movies (Hollywood)', 'Skincare', 'Music', 'B2B SaaS Software',
+    'Restaurants', 'Luxury Fashion', 'Medical Testing', 'Pianos', 'Youtube', 'Services', 'Government Funding',
+    'Consumer apps', 'Rehab Centers', 'Financial Services', 'Digital Marketers', 'Gun Sales', 'Payday Loans',
+    'Plastic Surgery', 'Restaurants / Cinnamon Roll Shop', 'Cement', 'Books', 'Streaming', 'Podcasts',
+    'Churches (MORMONS)', 'Franchises (like selling the franchise)', 'Bail Bonds', 'Private Jet Brokers',
+    'House Flipping Gurus (Hard Money Dudes)', 'Art Galleries / Art', 'Pest Control (door knockers turned YouTubers)',
+    'Debt Settlement / Credit Repair (lead-gen broville)', 'Crypto Projects', 'Meme Pages',
+    'Funeral Homes / Crematoriums', 'Offshore Banking Services', 'International Schools', 'Surrogacy Clinics',
+    'Dental Tourism', 'Universities', 'MLMs', 'Citizenship-by-Investment Firms', 'MyPillow', 'Masculinity Coaches',
+    'Amish Furniture Brands (yes, they run Display ads somehow)',
+    'Gravel + Dirt Delivery (shockingly competitive PPC niche)',
+    'Christian Dating Sites (ads w/ Purity + UX from 2008)', 'Pet Cremation', 'Exotic Pet Supplies',
+    'Pet Insurance', 'LOANS', 'Domain Flipping', 'Data Brokers', 'Matchmakers', 'Those Abuse Camps',
+    'Vintage Watch Marketplaces (luxury spend via Reddit SEO)', 'Psychologists / Counselors',
+    'Home Bunker Designers', 'Custom Mechanical Keyboards', 'Armor', 'Thrones', 'Divorce Coaches',
+    'Home Library Designers', 'Sleep training consultants',
+  ];
+  const OVERLAPS = { 25: 11, 30: 16, 61: 28 };   // a line -> the earlier line it repeats or covers
+
+  // First look, read 2026-10-26 at about 5:40 PM ET: one YouTube Data API search for each industry, 15 results.
+  // x = the best video's views divided by its channel's average video (total views / videos), counting only
+  // channels with 1,000 or more subscribers. null = no counted video.
+  const LOOK_PASS_X = 3, LOOK_MAX_X = 10;
+  const LOOK = [
+    { n: 37, x: 9.8, verdict: 'pass', label: 'PASS', short: 'People watch this.',
+      detail: 'Kyle Talks Money, “How Do Bail Bonds Work? (Explained)”: 33,830 views on a channel with 23,300 subscribers.' },
+    { n: 53, x: 5.6, verdict: 'warn', label: 'WARNING', short: 'People watch it, but as news about the CEO. The brand rule asks you first.',
+      detail: 'CNN, “Why MyPillow CEO decided to pull his ads from Fox News”: 667,095 views.' },
+    { n: 1, x: 1.7, verdict: 'fail', label: 'FAIL', short: 'Taken, and weak.',
+      detail: 'The Hustle (318,000 subscribers) made “Why Personal Injury Lawyer Billboards are Everywhere” in Dec 2024: 11,095 views, 0.1x its average. The best counted video is a law firm’s own ad.' },
+    { n: 45, x: null, verdict: 'warn', label: 'WARNING', short: 'No proof yet.',
+      detail: 'All 15 videos come from channels under 1,000 subscribers. The best has 593 views, 6.6x, on a channel with 43 subscribers. The next search uses other words.' },
+  ];
+  const VERDICT_WORD = { pass: 'Pass', fail: 'Fail', warn: 'Warning' };
+
+  const iels = { look: $('#look'), chips: $('#chips'), clegend: $('#clegend'), jump: $('#jump') };
+  const fmtX = x => x === null ? 'No counted video' : `${x}x`;
+
+  function renderLook() {
+    const passAt = LOOK_PASS_X / LOOK_MAX_X * 100;
+    iels.look.innerHTML =
+      `<div class="lscale" aria-hidden="true"><span style="left:0">0x</span><span style="left:${passAt}%">3x to pass</span><span style="left:100%">10x</span></div>` +
+      LOOK.map((r, i) => {
+        const w = r.x === null ? 0 : Math.min(r.x, LOOK_MAX_X) / LOOK_MAX_X * 100;
+        const said = r.x === null ? 'No counted video.' : `${r.x} times the channel’s average video.`;
+        return `<article class="lrow" style="--i:${i}">
+          <div class="lhead"><h3><span class="cn">#${r.n}</span> ${esc(INDUSTRIES[r.n - 1])}</h3><span class="vp ${r.verdict}">${r.label}</span></div>
+          <div class="lbar${w > 78 ? ' inside' : ''}${r.x === null ? ' none' : ''}" role="img" aria-label="${esc(said)} The bar to pass is 3 times."><i class="${r.verdict}" data-w="${w}"></i><span class="three"></span><span class="lx" style="--w:${w}%">${esc(fmtX(r.x))}</span></div>
+          <p class="lshort">${esc(r.short)}</p>
+          <p class="ldetail">${esc(r.detail)}</p>
+        </article>`;
+      }).join('');
+    log('idea plan first look rendered', { rows: LOOK.length, passAt: `${LOOK_PASS_X}x`, max: `${LOOK_MAX_X}x` });
+  }
+
+  function renderChips() {
+    const look = new Map(LOOK.map(r => [r.n, r]));
+    const counts = { pass: 0, fail: 0, warn: 0, overlap: 0, open: 0 };
+    iels.chips.innerHTML = INDUSTRIES.map((name, i) => {
+      const n = i + 1, l = look.get(n), of = OVERLAPS[n];
+      let cls = '', tail = '';
+      if (l) { cls = ` st-${l.verdict}`; tail = `<span class="eq">${VERDICT_WORD[l.verdict]}</span>`; counts[l.verdict]++; }
+      else if (of) { cls = ' st-rep'; tail = `<span class="eq">see #${of}</span>`; counts.overlap++; }
+      else counts.open++;
+      return `<li class="chip${cls}"><span class="cn">${n}</span><span>${esc(name)}</span>${tail}</li>`;
+    }).join('');
+    iels.clegend.innerHTML = [
+      ['pass', 'Pass', counts.pass], ['fail', 'Fail', counts.fail], ['warn', 'Warning', counts.warn],
+      ['rep', 'Overlaps an earlier line', counts.overlap], ['open', 'Not run yet', counts.open],
+    ].map(([k, label, c]) => `<span><i class="dot ${k}"></i>${label}: ${c}</span>`).join('');
+    log('idea plan industries', counts);
+    return counts;
+  }
+
+  // The first look's bars grow once each time the plan opens, when they scroll into view.
+  let lookPlayed = false;
+  const lookIO = 'IntersectionObserver' in window
+    ? new IntersectionObserver(entries => {
+        if (!lookPlayed && entries.some(e => e.isIntersecting)) { lookPlayed = true; playLook('in view'); }
+      }, { threshold: 0.35 })
+    : null;
+
+  function armLook(why) {
+    const fills = iels.look.querySelectorAll('.lbar i');
+    lookPlayed = false;
+    iels.look.classList.remove('grown');
+    fills.forEach(f => { f.style.transition = 'none'; f.style.width = '0%'; });
+    void iels.look.offsetWidth;
+    fills.forEach(f => { f.style.transition = ''; });
+    if (lookIO) {
+      lookIO.disconnect();
+      lookIO.observe(iels.look);
+      log('first look armed', { why, bars: fills.length });
+    } else {
+      playLook(`${why}, no IntersectionObserver`);
+    }
+  }
+
+  function playLook(why) {
+    const started = performance.now();
+    iels.look.querySelectorAll('.lbar i').forEach(f => { f.style.width = `${f.dataset.w}%`; });
+    iels.look.classList.add('grown');
+    log('first look bars grow', { why, bars: LOOK.map(r => `#${r.n} ${fmtX(r.x)}`) });
+    setTimeout(() => log('first look bars done', { ms: Math.round(performance.now() - started) }), REDUCED ? 0 : 1700);
+  }
+
+  iels.jump.addEventListener('click', e => {
+    const b = e.target.closest('button[data-jump]');
+    if (!b) return;
+    const target = document.getElementById(b.dataset.jump);
+    if (!target) { console.error('[verifiers] idea plan: no section', b.dataset.jump); return; }
+    target.scrollIntoView({ behavior: REDUCED ? 'auto' : 'smooth', block: 'start' });
+    log('idea plan jump', { section: b.dataset.jump });
+  });
+
+  // Load-time checks: the list must hold the note's 74 lines, and each first look or overlap must name one.
+  if (INDUSTRIES.length !== 74) console.error('[verifiers] idea plan: expected 74 industry lines, found', INDUSTRIES.length);
+  LOOK.forEach(r => { if (!INDUSTRIES[r.n - 1]) console.error('[verifiers] idea plan: first look names a missing line', r.n); });
+  Object.entries(OVERLAPS).forEach(([n, of]) => {
+    if (!INDUSTRIES[n - 1] || !INDUSTRIES[of - 1] || of >= Number(n)) console.error('[verifiers] idea plan: bad overlap', n, of);
+  });
+  renderLook();
+  const chipCounts = renderChips();
+
+  // ---- Views: verifiers, the production pipeline and the idea verifier plan ----
+  const views = { verifiers: $('#view-verifiers'), pipeline: $('#view-pipeline'), ideas: $('#view-ideas') };
   const actionbar = $('.actionbar');
   function showView(name, why) {
-    if (!views[name]) { console.error('[verifiers] unknown view', name); return; }
+    if (!Object.hasOwn(views, name)) { console.error('[verifiers] unknown view', name); return; }
     Object.entries(views).forEach(([key, el]) => { el.hidden = key !== name; });
     document.querySelectorAll('.seg button').forEach(b => b.setAttribute('aria-selected', String(b.dataset.view === name)));
     actionbar.hidden = name !== 'verifiers';
@@ -841,6 +1431,7 @@ button{font:inherit;color:inherit}
       void board.offsetWidth;
       board.classList.add('enter-cards');
     }
+    if (name === 'ideas') armLook(why);
     if (location.hash !== `#${name}`) history.replaceState(null, '', `#${name}`);
     log('view', { view: name, why, cards: name === 'pipeline' ? document.querySelectorAll('.vcard').length : undefined });
   }
@@ -848,10 +1439,14 @@ button{font:inherit;color:inherit}
     const b = e.target.closest('button[data-view]');
     if (b) showView(b.dataset.view, 'tab');
   });
-  showView(location.hash === '#pipeline' ? 'pipeline' : 'verifiers', 'init');
+  const startView = location.hash.slice(1);
+  showView(Object.hasOwn(views, startView) ? startView : 'verifiers', 'init');
   log('init', {
     verifiers: VERIFIERS.length,
     rules: VERIFIERS.reduce((n, v) => n + v.rules.length, 0),
+    industries: INDUSTRIES.length,
+    firstLook: LOOK.length,
+    chips: chipCounts,
     reducedMotion: REDUCED,
     ms: Math.round(performance.now() - T0),
   });
