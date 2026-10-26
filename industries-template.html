@@ -1,0 +1,293 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex, nofollow">
+<title>Industry Run</title>
+<meta name="description" content="Which industries the new channel should cover: the video idea verifier's run on the 74 industry lines, with the proof video for each pass.">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='8' fill='%232F5BD3'/%3E%3Cpath d='M9 16.5l4.5 4.5L23 11.5' fill='none' stroke='white' stroke-width='3' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+:root{
+  --bg:#F3F5F9;--card:#FFFFFF;--well:#F8F9FC;
+  --ink:#151922;--muted:#596173;--faint:#8A92A3;--line:#E1E5ED;--track:#EEF1F6;
+  --accent:#2F5BD3;--accent-ink:#1E43A8;--accent-soft:#E7EDFB;
+  --pass:#12764A;--pass-soft:#E3F3EA;
+  --fail:#C0372E;--fail-soft:#FBE9E7;
+  --warn:#9A6212;--warn-soft:#FBF1DE;
+  --r-lg:18px;--r:12px;--r-sm:8px;
+  --shadow:0 1px 2px rgba(21,25,34,.05),0 10px 30px rgba(21,25,34,.06);
+}
+*{box-sizing:border-box}
+[hidden]{display:none!important}
+html{-webkit-text-size-adjust:100%}
+body{margin:0;background:var(--bg);color:var(--ink);font:16px/1.5 Inter,system-ui,-apple-system,"Segoe UI",Roboto,sans-serif;-webkit-font-smoothing:antialiased;padding-bottom:48px}
+p{margin:0}
+p,li{text-wrap:pretty}
+h1,h2,h3{margin:0;text-wrap:balance}
+button{font:inherit;color:inherit}
+a{color:var(--accent-ink)}
+.wrap{max-width:1000px;margin:0 auto;padding:0 24px}
+
+.back{display:inline-block;margin-top:22px;font-size:14px;font-weight:600;text-decoration:none}
+.back:hover{text-decoration:underline}
+.top{padding:14px 0 22px}
+.top h1{font-size:clamp(30px,4.2vw,44px);line-height:1.05;font-weight:700;letter-spacing:-.025em}
+.lede{margin-top:12px;max-width:62ch;font-size:17px;color:var(--muted)}
+
+/* Counts that filter */
+.counts{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:10px}
+.count{appearance:none;cursor:pointer;text-align:left;padding:14px 16px;border-radius:var(--r);border:1px solid var(--line);background:var(--card);transition:border-color .2s,box-shadow .2s}
+.count:hover{border-color:#C9CFDB}
+.count[aria-pressed="true"]{border-color:var(--accent);box-shadow:inset 0 0 0 1px var(--accent)}
+.count:focus-visible{outline:3px solid rgba(47,91,211,.4);outline-offset:2px}
+.count .num{display:block;font-size:30px;font-weight:700;line-height:1.1;letter-spacing:-.02em}
+.count .lab{display:flex;align-items:center;gap:6px;margin-top:2px;font-size:14px;font-weight:600;color:var(--muted)}
+.dot{display:inline-block;width:9px;height:9px;border-radius:50%;background:#C9CFDB}
+.dot.pass{background:var(--pass)}
+.dot.fail{background:var(--fail)}
+.dot.warn{background:var(--warn)}
+
+/* Open question */
+.ask{margin-top:16px;padding:18px 20px;background:var(--card);border-radius:var(--r-lg);box-shadow:var(--shadow);border-left:4px solid var(--accent)}
+.ask h2{font-size:17px;font-weight:700}
+.ask p{margin-top:6px;color:var(--muted);max-width:72ch}
+.ask ol{margin:10px 0 0;padding-left:20px}
+.ask li{margin:4px 0}
+.ask li b{font-weight:600}
+
+/* Sections */
+.sec{margin-top:36px}
+.sec>h2{font-size:22px;font-weight:700;letter-spacing:-.015em}
+.sec>.sub{margin-top:4px;max-width:72ch;font-size:15px;color:var(--muted)}
+
+/* Pass list: one bar for each industry, log scale */
+.axisrow{display:grid;grid-template-columns:34px minmax(0,1fr);gap:0 12px;padding:0 16px;margin:16px 0 6px}
+.axis{grid-column:2;position:relative;height:18px;font-size:11.5px;line-height:18px;color:var(--faint);font-variant-numeric:tabular-nums}
+.axis span{position:absolute;transform:translateX(-50%);white-space:nowrap}
+.axis span.last{transform:translateX(-100%)}
+.plist{list-style:none;margin:0;padding:0;display:grid;gap:10px}
+.prow{display:grid;grid-template-columns:34px minmax(0,1fr);gap:4px 12px;padding:14px 16px;background:var(--card);border-radius:var(--r);box-shadow:0 1px 2px rgba(21,25,34,.06),0 6px 18px rgba(21,25,34,.04)}
+.rank{padding-top:1px;font-size:14px;font-weight:700;color:var(--faint);font-variant-numeric:tabular-nums}
+.prow h3{font-size:16px;font-weight:600}
+.cn{font-size:12.5px;font-weight:700;color:var(--faint);font-variant-numeric:tabular-nums;margin-right:4px}
+.bar{position:relative;height:24px;margin-top:8px;border-radius:var(--r-sm);background:var(--track)}
+.bar i{position:absolute;top:0;bottom:0;left:0;width:0;border-radius:0 4px 4px 0;background:var(--accent);transition:width 1s cubic-bezier(.2,.7,.2,1)}
+.bar .passline{position:absolute;top:-3px;bottom:-3px;width:2px;margin-left:-1px;background:var(--ink);opacity:.45}
+.bar .val{position:absolute;top:0;padding:0 6px;font-size:13px;font-weight:700;line-height:24px;white-space:nowrap;background:var(--track);border-radius:4px}
+.bar.inside .val{background:transparent;color:#fff}
+.proof{display:grid;grid-template-columns:120px minmax(0,1fr);gap:12px;align-items:center;margin-top:10px;color:inherit;text-decoration:none;border-radius:var(--r-sm)}
+.proof:hover .ptitle{text-decoration:underline}
+.proof:focus-visible{outline:3px solid rgba(47,91,211,.4);outline-offset:2px}
+.proof img{display:block;width:120px;height:68px;object-fit:cover;border-radius:6px;background:var(--track)}
+.ptitle{display:block;font-weight:600;line-height:1.35;overflow-wrap:anywhere}
+.pmeta{display:block;margin-top:2px;font-size:13.5px;color:var(--muted)}
+.others{margin-top:10px;font-size:14px}
+.others summary{cursor:pointer;font-weight:600;color:var(--accent-ink)}
+.others summary:focus-visible{outline:3px solid rgba(47,91,211,.4);outline-offset:2px;border-radius:4px}
+.others ul{list-style:none;margin:8px 0 0;padding:0;display:grid;gap:6px}
+.others li{display:grid;grid-template-columns:48px minmax(0,1fr);gap:8px;padding:6px 0;border-top:1px solid var(--line)}
+.others .x{font-weight:700;font-variant-numeric:tabular-nums}
+.others a{color:inherit}
+.others .meta{display:block;color:var(--muted);font-size:13px}
+
+/* Fail and warning groups */
+.groups{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:12px;margin-top:14px}
+.group{padding:16px 18px;background:var(--card);border-radius:var(--r);box-shadow:0 1px 2px rgba(21,25,34,.06),0 6px 18px rgba(21,25,34,.04)}
+.group h3{display:flex;align-items:center;gap:8px;font-size:15px;font-weight:700}
+.group .why{margin-top:2px;font-size:14px;color:var(--muted)}
+.group ul{list-style:none;margin:10px 0 0;padding:0}
+.group li{padding:8px 0;border-top:1px solid var(--line);font-size:14.5px}
+.group li b{font-weight:600}
+.group li .r{display:block;margin-top:1px;font-size:13.5px;color:var(--muted);overflow-wrap:anywhere}
+
+.foot{margin-top:36px;padding-top:16px;border-top:1px solid var(--line);font-size:13.5px;color:var(--muted)}
+.foot p+p{margin-top:8px}
+.foot b{font-weight:600;color:var(--ink)}
+
+@media (max-width:760px){.groups{grid-template-columns:minmax(0,1fr)}}
+@media (max-width:640px){
+  .wrap{padding:0 16px}
+  .counts{grid-template-columns:repeat(2,minmax(0,1fr))}
+  .prow{grid-template-columns:minmax(0,1fr);padding:14px}
+  .rank{display:none}
+  .axisrow{grid-template-columns:minmax(0,1fr);padding:0 14px}
+  .axis{grid-column:1}
+  .proof{grid-template-columns:96px minmax(0,1fr)}
+  .proof img{width:96px;height:54px}
+}
+@media (prefers-reduced-motion:reduce){
+  *,*::before,*::after{animation:none!important;transition:none!important}
+}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <a class="back" href="index.html#ideas">Back to the idea verifier plan</a>
+  <header class="top">
+    <h1>Industry run</h1>
+    <p class="lede" id="lede"></p>
+  </header>
+
+  <div class="counts" role="group" aria-label="Show the lines with this outcome" id="counts"></div>
+
+  <section class="ask" aria-labelledby="ask-h">
+    <h2 id="ask-h">Open question: what counts as proof?</h2>
+    <p>Many of the top proofs are how-to videos for people who want to work in the industry, such as an ebook video for Books. The new channel makes explainers for outsiders, such as the documentary that proves Plastic Surgery. Will decides.</p>
+    <ol>
+      <li><b>Only explainers for outsiders.</b> Claude’s pick, because it matches the channel’s videos.</li>
+      <li><b>Any video about the industry’s business, how-to videos too.</b> This is how the verifier works now.</li>
+    </ol>
+  </section>
+
+  <section class="sec" id="sec-pass" aria-labelledby="pass-h">
+    <h2 id="pass-h"></h2>
+    <p class="sub">Best proof first. A bar is the proof video’s views divided by its channel’s average video. The scale is logarithmic: each step is 10 times the one before. The dark line is the 3x needed to pass.</p>
+    <div class="axisrow" aria-hidden="true"><div class="axis" id="axis"></div></div>
+    <ol class="plist" id="plist"></ol>
+  </section>
+
+  <section class="sec" id="sec-fail" aria-labelledby="fail-h">
+    <h2 id="fail-h"></h2>
+    <div class="groups" id="fgroups"></div>
+  </section>
+
+  <section class="sec" id="sec-warn" aria-labelledby="warn-h">
+    <h2 id="warn-h"></h2>
+    <div class="groups" id="wgroups"></div>
+  </section>
+
+  <footer class="foot">
+    <p><b>The rules.</b> A: the line names one clear industry (AI judgment). B: it does not repeat an earlier line (code). C: people watch its story. Code keeps only videos over 3 minutes, on channels with 1,000 or more subscribers, whose titles name the industry, with 3x or more of their channel’s average views. Then the AI checks that the video is about how the industry makes money, gets customers or works as a business.</p>
+    <p id="runinfo"></p>
+    <p id="note"></p>
+  </footer>
+</div>
+
+<script>
+(() => {
+  'use strict';
+  const T0 = performance.now();
+  const log = (msg, data) => data === undefined ? console.log('[industries]', msg) : console.log('[industries]', msg, data);
+  window.addEventListener('error', e => console.error('[industries] page error', e.message));
+  const REDUCED = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+  // The run's data, embedded by build-industries.sh from the verifier's lines.json and results.json.
+  const RUN = /*RUN_DATA*/null;
+  if (!RUN || !Array.isArray(RUN.lines)) { console.error('[industries] no run data in the page'); return; }
+
+  const PASS_AT = 3, LOG_MAX = 3;   // the 3x pass line; the scale ends at 10^3 = 1,000x
+  const TICKS = [3, 10, 30, 100, 300, 1000];
+  const $ = sel => document.querySelector(sel);
+  const esc = s => String(s ?? '').replace(/[&<>"]/g, c => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;' })[c]);
+  const nf = new Intl.NumberFormat('en-US');
+  const pos = x => Math.max(0, Math.min(1, Math.log10(Math.max(x, 1)) / LOG_MAX)) * 100;
+  const fx = x => x >= 10 ? `${Math.round(x)}x` : `${(Math.floor(x * 10) / 10).toFixed(1)}x`;
+  const mins = s => s >= 3600 ? `${Math.floor(s / 3600)} h ${Math.round((s % 3600) / 60)} min` : `${Math.max(1, Math.round(s / 60))} min`;
+  const cap = s => s ? s.charAt(0).toUpperCase() + s.slice(1) : s;
+  const yt = id => `https://www.youtube.com/watch?v=${encodeURIComponent(id)}`;
+  const thumb = id => `https://i.ytimg.com/vi/${encodeURIComponent(id)}/mqdefault.jpg`;
+
+  const pass = RUN.lines.filter(l => l.outcome === 'PASS')
+    .sort((a, b) => (b.proof.score - a.proof.score) || (b.proof.views - a.proof.views));
+  const fail = RUN.lines.filter(l => l.outcome === 'FAIL');
+  const warn = RUN.lines.filter(l => l.outcome === 'WARNING');
+  const other = RUN.lines.length - pass.length - fail.length - warn.length;
+  if (other) console.error('[industries] lines with an unknown outcome', other);
+  log('data', { lines: RUN.lines.length, pass: pass.length, fail: fail.length, warning: warn.length, run_at: RUN.run_at, units: RUN.units });
+
+  // ---- Header and counts ----
+  $('#lede').textContent = `The video idea verifier judged all ${RUN.lines.length} industry lines on ${RUN.run_at}. ${pass.length} pass. Each pass has a proof video that got 3x or more of its channel’s average views. Will picks the industries to cover.`;
+  const COUNTS = [
+    { key: 'PASS', label: 'Pass', dot: 'pass', n: pass.length },
+    { key: 'FAIL', label: 'Fail', dot: 'fail', n: fail.length },
+    { key: 'WARNING', label: 'Warning', dot: 'warn', n: warn.length },
+    { key: 'ALL', label: 'All lines', dot: '', n: RUN.lines.length },
+  ];
+  $('#counts').innerHTML = COUNTS.map(c =>
+    `<button class="count" type="button" data-show="${c.key}" aria-pressed="${c.key === 'ALL'}"><span class="num">${c.n}</span><span class="lab"><i class="dot ${c.dot}"></i>${c.label}</span></button>`).join('');
+  $('#counts').addEventListener('click', e => {
+    const b = e.target.closest('button[data-show]');
+    if (!b) return;
+    const key = b.dataset.show;
+    document.querySelectorAll('.count').forEach(x => x.setAttribute('aria-pressed', String(x === b)));
+    $('#sec-pass').hidden = !(key === 'ALL' || key === 'PASS');
+    $('#sec-fail').hidden = !(key === 'ALL' || key === 'FAIL');
+    $('#sec-warn').hidden = !(key === 'ALL' || key === 'WARNING');
+    log('filter', { show: key });
+  });
+
+  // ---- Pass list ----
+  $('#pass-h').textContent = `${pass.length} industries pass`;
+  $('#axis').innerHTML = TICKS.map((t, i) =>
+    `<span class="${i === TICKS.length - 1 ? 'last' : ''}" style="left:${pos(t)}%">${t === PASS_AT ? '3x to pass' : nf.format(t) + 'x'}</span>`).join('');
+  $('#plist').innerHTML = pass.map((l, i) => {
+    const p = l.proof, w = pos(p.score), inside = w > 82;
+    const label = inside ? `right:calc(${100 - w}% + 4px)` : `left:calc(${w}% + 6px)`;
+    const others = l.others.length ? `
+      <details class="others"><summary>${l.others.length} more ${l.others.length === 1 ? 'video' : 'videos'} at 3x or more that the AI counts</summary><ul>
+        ${l.others.map(o => `<li><span class="x">${fx(o.score)}</span><span><a href="${yt(o.id)}" target="_blank" rel="noopener">${esc(o.title)}</a><span class="meta">${esc(o.channel)}, ${nf.format(o.views)} views</span></span></li>`).join('')}
+      </ul></details>` : '';
+    return `<li class="prow">
+      <span class="rank">${i + 1}</span>
+      <div>
+        <h3><span class="cn">#${l.n}</span>${esc(l.line)}</h3>
+        <div class="bar${inside ? ' inside' : ''}" role="img" aria-label="${esc(fx(p.score))}: ${p.score.toFixed(1)} times its channel’s average video">
+          <i data-w="${w}"></i><span class="passline" style="left:${pos(PASS_AT)}%"></span><span class="val" style="${label}">${fx(p.score)}</span>
+        </div>
+        <a class="proof" href="${yt(p.id)}" target="_blank" rel="noopener">
+          <img src="${thumb(p.id)}" alt="" loading="lazy" width="120" height="68">
+          <span><span class="ptitle">${esc(p.title)}</span><span class="pmeta">${esc(p.channel)}, ${nf.format(p.views)} views, ${nf.format(p.subs)} subscribers, ${mins(p.seconds)}</span></span>
+        </a>${others}
+      </div>
+    </li>`;
+  }).join('');
+
+  // ---- Fail and warning groups ----
+  const GROUPS = {
+    A: { title: 'Rule A: not one clear industry', why: 'The AI does not read the line as one industry or one company.' },
+    B: { title: 'Rule B: repeats an earlier line', why: 'An earlier line already covers it.' },
+    'C-score': { title: 'Rule C: no video reaches 3x', why: 'Long videos name the industry, but none gets 3x its channel’s average.' },
+    'C-ai': { title: 'Rule C: the AI says no to every candidate', why: 'Videos reach 3x, but the AI says none is about the business.' },
+    'C-none': { title: 'Rule C: nothing to judge', why: 'No long video on a channel with 1,000 or more subscribers names the industry.' },
+    'C-noquery': { title: 'Rule C: no search', why: 'The line has no YouTube search yet.' },
+  };
+  const renderGroups = (lines, el, dot) => {
+    const byKind = {};
+    lines.forEach(l => { (byKind[l.kind] = byKind[l.kind] || []).push(l); });
+    el.innerHTML = Object.keys(GROUPS).filter(k => byKind[k]).map(k => `
+      <section class="group" aria-label="${esc(GROUPS[k].title)}">
+        <h3><i class="dot ${dot}"></i>${esc(GROUPS[k].title)} (${byKind[k].length})</h3>
+        <p class="why">${esc(GROUPS[k].why)}</p>
+        <ul>${byKind[k].sort((a, b) => a.n - b.n).map(l => `<li><b><span class="cn">#${l.n}</span>${esc(l.line)}</b>${
+          l.kind === 'A' ? (typeof l.a_p === 'number' ? `<span class="r">The AI’s yes score: ${l.a_p.toFixed(2)}. A yes needs 0.5.</span>` : '') : l.reason ? `<span class="r">${esc(cap(l.reason))}.</span>` : ''}</li>`).join('')}</ul>
+      </section>`).join('');
+    const unknown = lines.filter(l => !GROUPS[l.kind]);
+    if (unknown.length) console.error('[industries] lines in no group', unknown.map(l => l.n));
+  };
+  $('#fail-h').textContent = `${fail.length} industries fail`;
+  renderGroups(fail, $('#fgroups'), 'fail');
+  $('#warn-h').textContent = `${warn.length} ${warn.length === 1 ? 'industry needs' : 'industries need'} a look`;
+  renderGroups(warn, $('#wgroups'), 'warn');
+  $('#sec-warn').hidden = warn.length === 0;
+
+  $('#runinfo').innerHTML = `<b>The run.</b> ${esc(RUN.run_at)}. YouTube quota used: ${RUN.units ?? 'unknown'} units.`;
+  if (RUN.note) $('#note').textContent = RUN.note; else $('#note').hidden = true;
+
+  // ---- The bars grow once, from the baseline ----
+  const fills = [...document.querySelectorAll('.bar i')];
+  requestAnimationFrame(() => {
+    fills.forEach((f, i) => {
+      f.style.transitionDelay = REDUCED ? '0ms' : `${Math.min(i, 12) * 40}ms`;
+      f.style.width = `${f.dataset.w}%`;
+    });
+    log('bars grow', { bars: fills.length, reducedMotion: REDUCED });
+  });
+  log('rendered', { pass: pass.length, fail: fail.length, warning: warn.length, ms: Math.round(performance.now() - T0) });
+})();
+</script>
+</body>
+</html>
