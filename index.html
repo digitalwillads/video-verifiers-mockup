@@ -292,6 +292,16 @@ button{font:inherit;color:inherit}
 .prule .rcase{margin-top:6px;font-size:14px}
 .prule .rcase .src{margin-right:6px}
 
+.rbox.wide{grid-column:1/-1}
+.rgrid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:0 24px}
+.prule .t .kind{height:20px;padding:0 8px;font-size:11.5px}
+.chead{display:flex;align-items:flex-start;justify-content:space-between;gap:12px}
+.vp.done{background:var(--accent)}
+.case.done{background:var(--well);box-shadow:none;border:1px solid var(--line)}
+.case .answer{margin-top:8px;font-weight:600}
+.case .said-by{margin-top:4px;font-size:14.5px;color:var(--muted)}
+@media (max-width:900px){.rgrid{grid-template-columns:minmax(0,1fr)}}
+
 .clegend{display:flex;flex-wrap:wrap;gap:8px 18px;font-size:13.5px;color:var(--muted)}
 .clegend span{display:inline-flex;align-items:center;gap:6px}
 .dot{display:inline-block;width:10px;height:10px;border-radius:50%}
@@ -536,7 +546,7 @@ button{font:inherit;color:inherit}
   <header class="wrap top">
     <div>
       <h1>Idea verifier</h1>
-      <p class="lede">It turns the 74 industries into a short list of video ideas that people already watch. It runs before anyone writes or films. The evidence verifier comes next.</p>
+      <p class="lede">It picks which industries the new channel covers and the video ideas for each. Each pick has proof that people watch it. The evidence verifier comes next.</p>
     </div>
     <div class="legend">
       <div><span class="src real">Real</span><span>Measured. The source is named.</span></div>
@@ -569,6 +579,7 @@ button{font:inherit;color:inherit}
         <li><b>Each channel gets its own verifiers. A channel works when a viewer watches a second video.</b><q>If someone watches one of your videos and then they watch another.</q><span class="who">Will, from a YouTube consultant</span></li>
         <li><b>Start from what we have: our calls, ad accounts and client stories.</b><q>The ideas might already be there.</q><span class="who">Romina</span></li>
         <li><b>After the call, the machine is for the organic channel. It starts from the 74 lines.</b><q>We want to do the 74 lines of industry.</q><span class="who">Will, after the call</span></li>
+        <li><b>It also picks the industries to cover.</b><q>The ideas are also about what industries to cover.</q><span class="who">Will, after the call</span></li>
       </ul>
     </section>
 
@@ -582,8 +593,8 @@ button{font:inherit;color:inherit}
     <section class="isec" id="i-case" aria-labelledby="i-case-h">
       <h2 id="i-case-h">The business case</h2>
       <div class="lead body">
-        <p>Build the idea verifier first. Four searches already showed that our first idea is taken and that Bail Bonds has proof.</p>
-        <p class="call"><b>Claude’s call:</b> build it. Start with 5 industries, then run all 74.</p>
+        <p>Build the idea verifier first. Four searches already showed that our first idea is taken, and that Bail Bonds and MyPillow have proof.</p>
+        <p class="call"><b>Claude’s call:</b> build it. Rank all 74 industries first, then write ideas for the top 10.</p>
       </div>
       <div class="tiles">
         <article class="tile">
@@ -598,16 +609,16 @@ button{font:inherit;color:inherit}
         <article class="tile">
           <h3>What it does</h3>
           <ul class="facts">
-            <li><span class="src words">Your words</span>It researches each industry, writes ideas, checks them and says which one we make.</li>
-            <li><span class="src est">Estimate</span>It writes 3 idea cards for each industry: about 220 cards.</li>
-            <li><span class="src words">Your words</span>The picks go to the evidence verifier for the story, the hook and the proof.</li>
+            <li><span class="src words">Your words</span>It picks which industries to cover and which videos to make. Research is built in.</li>
+            <li><span class="src est">Estimate</span>It ranks the 74 industries and any new ones it finds. Then it writes 3 idea cards for each of the top 10.</li>
+            <li><span class="src words">Your words</span>You pick. Your picks go to the evidence verifier for the story, the hook and the proof.</li>
           </ul>
         </article>
         <article class="tile">
           <h3>Without it</h3>
           <ul class="facts">
             <li><span class="src est">Estimate</span>We pick ideas by feel. A video gets a script, a shoot and an edit before anyone checks that people watch the topic.</li>
-            <li><span class="src real">Real</span>By feel, the first video would be personal injury, the weakest of the 4.</li>
+            <li><span class="src real">Real</span>By feel, the first video would be personal injury, which failed.</li>
           </ul>
         </article>
         <article class="tile">
@@ -628,9 +639,9 @@ button{font:inherit;color:inherit}
           <h3>What it costs</h3>
           <ul class="facts">
             <li><span class="src real">Real</span>YouTube data is free up to 10,000 units a day. One search costs 100 units.</li>
-            <li><span class="src est">Estimate</span>One industry takes about 400 units, so about 25 industries a day. All 74 take 3 days.</li>
+            <li><span class="src est">Estimate</span>One industry takes about 300 units, so about 30 industries a day. All 74 take 3 days.</li>
             <li><span class="src est">Estimate</span>Phase 2 measures the AI cost on 5 industries before the run on all 74.</li>
-            <li><span class="src est">Estimate</span>Romina needs about 2 hours to mark the first 15 cards.</li>
+            <li><span class="src est">Estimate</span>You need about 1 hour to mark the top industries and the first 15 cards.</li>
           </ul>
         </article>
         <article class="tile">
@@ -647,7 +658,7 @@ button{font:inherit;color:inherit}
             <li><b>It copies other channels.</b> A rule fails a card with a top video’s title or angle. The topic can be the same: “Take adjacent ideas and then steal it when it goes well.” (your note)</li>
             <li><b>It names a client.</b> A rule checks each card against the CRM client list.</li>
             <li><b>It makes up a number.</b> Every number links to its source. An AI answer is never a source.</li>
-            <li><b>A topic hurts the brand.</b> The brand rule asks you first.</li>
+            <li><b>It ranks an industry on too little.</b> It runs 3 searches for each industry, and you see the proof before you pick.</li>
             <li><b>AI judges AI.</b> Your marks and the backtest test it on real results.</li>
           </ul>
         </article>
@@ -658,12 +669,12 @@ button{font:inherit;color:inherit}
       <h2 id="i-how-h">How one industry becomes an idea</h2>
       <div class="split body">
         <ol class="flow">
-          <li><div><b>Take an industry.</b><p>From the 74 lines, or a new line that you or Romina add.</p></div></li>
-          <li><div><b>Research it.</b><p>YouTube: the top videos and the outliers. Reddit: the questions people ask. Our calls and ad accounts: what we know first-hand, read only. Ad costs: what one click costs.</p></div></li>
-          <li><div><b>Write 3 idea cards.</b><p>Each card holds the fields in the example.</p></div></li>
+          <li><div><b>Research every industry.</b><p>The 74 lines, plus new industries that it finds in YouTube outliers. YouTube: the top videos and the outliers. Reddit: the questions people ask. Our calls and ad accounts: what we know first-hand, read only. Ad costs: what one click costs.</p></div></li>
+          <li><div><b>Rank the industries.</b><p>Proof that people watch the industry’s story first, then what we know first-hand.</p></div></li>
+          <li><div><b>Write 3 idea cards for each of the top 10.</b><p>Each card holds the fields in the example.</p></div></li>
           <li><div><b>Check each card.</b><p>Code rules first, then AI judgments. A fail goes back with the fix.</p></div></li>
           <li><div><b>Rank the passes.</b><p>Proof that people watch it first, then curiosity, then fit.</p></div></li>
-          <li><div><b>You and Romina pick.</b><p>“Some of them are interesting, some of them are not.” Your picks also teach it.</p></div></li>
+          <li><div><b>You pick the industries and the ideas.</b><p>“Some of them are interesting, some of them are not.” Your picks also teach it.</p></div></li>
           <li><div><b>Hand off to the evidence verifier.</b><p>It finds the story, the hook and the proof for the script.</p></div></li>
         </ol>
         <article class="icard" aria-labelledby="icard-h">
@@ -683,37 +694,44 @@ button{font:inherit;color:inherit}
             <div class="ifield"><dt>Next video</dt><dd>A Google Ads teardown on the Digital Will channel.<span class="src words">Your words</span></dd></div>
             <div class="ifield"><dt>Title and thumbnail</dt><dd>“Why Lawyers Buy Every Billboard”, with a wall of billboards and a $500 price tag.<span class="src est">Estimate</span></dd></div>
           </dl>
-          <p class="icard-verdict">2 of 10 rules fail. The card goes back. The fix: find an angle that the top videos skip, or move to the next industry.</p>
+          <p class="icard-verdict">2 of 9 card rules fail. The card goes back. The fix: find an angle that the top videos skip, or move to the next industry.</p>
         </article>
       </div>
     </section>
 
     <section class="isec" id="i-rules" aria-labelledby="i-rules-h">
-      <h2 id="i-rules-h">The 10 rules</h2>
-      <p class="sub">“A verifier really is a prompt with teeth.” (Will) Code rules run first. AI judgments run last. A card must pass all 10.</p>
+      <h2 id="i-rules-h">The rules</h2>
+      <p class="sub">“A verifier really is a prompt with teeth.” (Will) An industry passes 3 rules before it gets idea cards. Each card passes 9 more. Code rules run first. AI judgments run last.</p>
       <div class="rcols body">
-        <section class="rbox" aria-label="Code rules">
-          <h3><span class="kind">Code</span>The same answer every time</h3>
+        <section class="rbox wide" aria-label="Industry rules">
+          <h3>Industries: what to cover</h3>
+          <div class="rgrid">
+            <div class="prule"><div class="t"><span class="n">A</span><strong>One clear industry</strong><span class="kind ai">AI judgment</span></div><p class="d">The line names one industry that sells something to someone.</p><p class="rcase"><span class="src real">Real</span>#21 Services names no industry.</p></div>
+            <div class="prule"><div class="t"><span class="n">B</span><strong>Not a repeat</strong><span class="kind">Code</span></div><p class="d">Not the same industry as another line.</p><p class="rcase"><span class="src real">Real</span>#25 Financial Services repeats #11.</p></div>
+            <div class="prule"><div class="t"><span class="n">C</span><strong>People watch its story</strong><span class="kind">Code</span></div><p class="d">A video on how this industry sells or makes money got 3x or more its channel’s average. Only channels with 1,000 or more subscribers count.</p><p class="rcase"><span class="src real">Real</span>Bail Bonds passes at 9.8x. MyPillow passes at 5.6x.</p></div>
+          </div>
+        </section>
+        <section class="rbox" aria-label="Idea card code rules">
+          <h3><span class="kind">Code</span>Idea cards: the same answer every time</h3>
           <div class="prule"><div class="t"><span class="n">1</span><strong>The card is complete</strong></div><p class="d">Every field is filled. Each number has a source link.</p></div>
-          <div class="prule"><div class="t"><span class="n">2</span><strong>Not a repeat</strong></div><p class="d">Not the same industry or question as another card, or as a video we made.</p><p class="rcase"><span class="src real">Real</span>#25 Financial Services repeats #11.</p></div>
-          <div class="prule"><div class="t"><span class="n">3</span><strong>People watch it</strong></div><p class="d">A video on the same question got 3x or more its channel’s average. Only channels with 1,000 or more subscribers count.</p><p class="rcase"><span class="src real">Real</span>Bail Bonds passes at 9.8x. Personal Injury fails at 1.7x.</p></div>
+          <div class="prule"><div class="t"><span class="n">2</span><strong>Not a repeat</strong></div><p class="d">Not the same question as another card, or as a video we made.</p></div>
+          <div class="prule"><div class="t"><span class="n">3</span><strong>People watch it</strong></div><p class="d">Rule C again, for the card’s own question.</p><p class="rcase"><span class="src real">Real</span>The personal injury billboard question fails at 1.7x.</p></div>
           <div class="prule"><div class="t"><span class="n">4</span><strong>Not a copy</strong></div><p class="d">The title and the angle differ from each top video. The topic can be the same.</p><p class="rcase"><span class="src real">Real</span>The Hustle’s personal injury video.</p></div>
           <div class="prule"><div class="t"><span class="n">5</span><strong>No client named</strong></div><p class="d">No client from the CRM is in the card, unless the client said yes in writing.</p><p class="rcase"><span class="src words">Your words</span>“I can’t roast all my clients.”</p></div>
         </section>
-        <section class="rbox" aria-label="AI judgments">
-          <h3><span class="kind ai">AI judgment</span>Meaning and taste</h3>
+        <section class="rbox" aria-label="Idea card AI judgments">
+          <h3><span class="kind ai">AI judgment</span>Idea cards: meaning and taste</h3>
           <div class="prule"><div class="t"><span class="n">6</span><strong>A stranger clicks</strong></div><p class="d">Someone outside the industry wants the answer.</p><p class="rcase"><span class="src words">Your words</span>“I might click on it even though I’m not one of those people.” (Romina)</p></div>
           <div class="prule"><div class="t"><span class="n">7</span><strong>The answer surprises</strong></div><p class="d">The real answer is not the obvious guess.</p><p class="rcase"><span class="src words">Your words</span>Billboards: not the crash, the money.</p></div>
           <div class="prule"><div class="t"><span class="n">8</span><strong>Will is the authority</strong></div><p class="d">The answer is about how the industry sells, which DWA knows first-hand.</p><p class="rcase"><span class="src words">Your words</span>“Positioning it in a way where obviously you’re going to be like the authority.” (Romina)</p></div>
           <div class="prule"><div class="t"><span class="n">9</span><strong>Leads to the next video</strong></div><p class="d">The card names a next video that this viewer wants.</p><p class="rcase"><span class="src words">Your words</span>The consultant’s rule: one video, then another.</p></div>
-          <div class="prule"><div class="t"><span class="n">10</span><strong>Safe for the brand</strong></div><p class="d">Nothing that hurts the brand or that YouTube ads may limit. If in doubt, it asks you.</p><p class="rcase"><span class="src real">Real</span>MyPillow: the top videos are news about the CEO.</p></div>
         </section>
       </div>
     </section>
 
     <section class="isec" id="i-list" aria-labelledby="i-list-h">
       <h2 id="i-list-h">The 74 industries</h2>
-      <p class="sub">From Will’s “Youtube” note, in its order. People’s names are left off this page. The spelling is fixed in 3 lines.</p>
+      <p class="sub">From Will’s “Youtube” note, in its order. The verifier can add new industries that it finds. People’s names are left off this page. The spelling is fixed in 3 lines.</p>
       <div class="clegend body" id="clegend"></div>
       <ul class="chips" id="chips"></ul>
     </section>
@@ -721,11 +739,11 @@ button{font:inherit;color:inherit}
     <section class="isec" id="i-plan" aria-labelledby="i-plan-h">
       <h2 id="i-plan-h">The plan</h2>
       <div class="lead body">
-        <p>Goal: 20 ideas that pass all 10 rules, ranked, by Nov 20, 2026. You and Romina pick the top 3 for the evidence verifier.<span class="src est">Estimate</span></p>
+        <p>Goal: by Nov 20, 2026, all 74 industries ranked, and 10 ideas that pass every rule. You pick the industries and the first 3 videos.<span class="src est">Estimate</span></p>
         <ol class="ladder">
           <li><span class="lv">Will’s goal</span><span>Close clients outside Upwork. “Upwork is slowly shrinking.”<span class="src words">Your words</span></span></li>
-          <li><span class="lv">The channels</span><span>The industry channel casts a wide net. Site visitors get remarketing ads to the Digital Will channel, where the views build trust.<span class="src words">Your words</span></span></li>
-          <li><span class="lv">This verifier</span><span>20 ranked ideas give the industry channel its first videos.<span class="src est">Estimate</span></span></li>
+          <li><span class="lv">The channels</span><span>The new channel, owned by Digital Will Ads, casts a wide net. Site visitors get remarketing ads to the Digital Will channel, where the views build trust.<span class="src words">Your words</span></span></li>
+          <li><span class="lv">This verifier</span><span>The ranked industries and 10 passing ideas give the new channel its first videos.<span class="src est">Estimate</span></span></li>
         </ol>
       </div>
       <div class="phases">
@@ -733,28 +751,28 @@ button{font:inherit;color:inherit}
           <p class="when">Phase 1, Oct 26 to 29</p>
           <h3>Agree on the rules</h3>
           <p>You and Romina read this plan. Romina brings her plan to the Thursday call at noon. Where they differ, her plan wins: “your plan is the more important plan.”</p>
-          <p class="g"><b>Gate:</b> you both say yes to the 10 rules and the card.</p>
+          <p class="g"><b>Gate:</b> you say yes to the rules and the card.</p>
           <p class="g"><b>Step to the goal:</b> the rules are set.</p>
         </article>
         <article class="phase">
           <p class="when">Phase 2, Oct 30 to Nov 5</p>
-          <h3>Five industries by hand</h3>
-          <p>Claude researches 5 industries: the 4 above and 1 that Romina picks. It writes 15 cards. You and Romina mark each card “make” or “skip”.</p>
+          <h3>Rank the 74 by hand</h3>
+          <p>Claude researches all 74 industries and ranks them. Then it writes 15 cards for the top 5. You mark each industry “cover” or “skip”, and each card “make” or “skip”.</p>
           <p class="g"><b>Gate:</b> 3 or more cards marked “make”.</p>
-          <p class="g"><b>Step to the goal:</b> the first ideas, and the test cases.</p>
+          <p class="g"><b>Step to the goal:</b> the first ranked list, the first ideas, and the test cases.</p>
         </article>
         <article class="phase">
           <p class="when">Phase 3, Nov 5 to 13</p>
           <h3>Build the verifier</h3>
-          <p>The research step and the 10 rules go into the verifiers repo through the change gate. You read the draft rule by rule first.</p>
-          <p class="g"><b>Gate:</b> it agrees with 12 of the 15 marks, and the backtest passes.</p>
+          <p>The research step and the rules go into the verifiers repo through the change gate. You read the draft rule by rule first.</p>
+          <p class="g"><b>Gate:</b> it agrees with 12 of your 15 card marks, and the backtest passes.</p>
           <p class="g"><b>Step to the goal:</b> a verifier we can trust.</p>
         </article>
         <article class="phase">
           <p class="when">Phase 4, Nov 13 to 20</p>
-          <h3>Run all 74</h3>
-          <p>It runs on the rest, about 25 industries a day. It ranks the passes.</p>
-          <p class="g"><b>Gate:</b> 20 ideas pass. You and Romina pick 3.</p>
+          <h3>Run it</h3>
+          <p>It writes cards for the top 10 industries and looks for new industries. It ranks the passes.</p>
+          <p class="g"><b>Gate:</b> 10 ideas pass. You pick the first 3 videos.</p>
           <p class="g"><b>Step to the goal:</b> the goal.</p>
         </article>
       </div>
@@ -763,37 +781,34 @@ button{font:inherit;color:inherit}
 
     <section class="isec" id="i-calls" aria-labelledby="i-calls-h">
       <h2 id="i-calls-h">Your calls</h2>
-      <p class="sub">Open questions. Each one shows Claude’s pick. The Thursday call can settle them.</p>
+      <p class="sub">You decided 3 on Oct 26. 2 are open, and each one shows Claude’s pick.</p>
       <div class="cases body">
         <article class="case">
-          <h3>Who picks the ideas?</h3>
-          <p class="why">The pick decides what gets filmed.</p>
-          <ul><li>You</li><li class="pick">Romina, for the first 2 rounds</li><li>The verifier alone</li></ul>
-          <p class="pickwhy"><b>Claude’s pick:</b> Romina, for the first 2 rounds. Her picks teach it. Then it picks alone, and she can overrule it.</p>
-        </article>
-        <article class="case">
-          <h3>Where does the new channel live?</h3>
-          <p class="why">A tool can read a channel’s click rate and watch time only through an account that can see the channel. The Digital Will channel is not on will@digitalwillads.com.</p>
-          <ul><li class="pick">A new channel owned by will@digitalwillads.com</li><li>Romina’s account</li><li>The Digital Will channel</li></ul>
-          <p class="pickwhy"><b>Claude’s pick:</b> a new channel owned by will@digitalwillads.com, with Romina as a manager.</p>
-        </article>
-        <article class="case">
-          <h3>Topics that can hurt the brand</h3>
-          <p class="why">Some lines touch politics, guns, payday loans or abuse.</p>
-          <ul><li class="pick">Research them, and ask you before a card moves on</li><li>Skip them</li><li>Treat them like the rest</li></ul>
-          <p class="pickwhy"><b>Claude’s pick:</b> research them, and ask you first.</p>
-        </article>
-        <article class="case">
           <h3>How to measure “people watch it”</h3>
-          <p class="why">The first look used the channel’s average video. One viral video can skew an average.</p>
-          <ul><li>The channel’s average video</li><li class="pick">The median of the channel’s last 30 videos</li><li>VidIQ’s outlier score, by hand</li></ul>
-          <p class="pickwhy"><b>Claude’s pick:</b> the median of the last 30 videos. It costs 2 more units for each channel.</p>
+          <p class="why">We judge one video. Its channel is only the yardstick. 11,095 views is a flop for The Hustle, whose videos average about 76,000. 33,830 views is a hit for Kyle Talks Money, whose videos average about 3,400. A video that beats its channel’s average got its extra views from strangers, and a new channel has only strangers.</p>
+          <ul><li>The one video’s views alone</li><li class="pick">The one video against its channel’s average</li><li>The one video against the median of its channel’s last 30 videos</li></ul>
+          <p class="pickwhy"><b>Claude’s pick:</b> the channel’s average. It takes 2 numbers from the channel, its total views and its number of videos, and reads no other videos. The backtest shows if that is enough.</p>
         </article>
         <article class="case">
           <h3>How many ideas for each industry?</h3>
-          <p class="why">More cards find more winners, and take more of Romina’s time.</p>
+          <p class="why">More cards find more winners, and take more of your time to mark.</p>
           <ul><li>1</li><li class="pick">3</li><li>5</li></ul>
-          <p class="pickwhy"><b>Claude’s pick:</b> 3, about 220 cards for the 74 lines.</p>
+          <p class="pickwhy"><b>Claude’s pick:</b> 3, so about 30 cards for the top 10 industries.</p>
+        </article>
+        <article class="case done">
+          <div class="chead"><h3>Who picks the ideas?</h3><span class="vp done">Decided</span></div>
+          <p class="answer">You do: the industries and the ideas.</p>
+          <p class="said-by">“I pick the ideas.” (Will, Oct 26)</p>
+        </article>
+        <article class="case done">
+          <div class="chead"><h3>Where does the new channel live?</h3><span class="vp done">Decided</span></div>
+          <p class="answer">A new channel owned by Digital Will Ads.</p>
+          <p class="said-by">“It’s a new channel owned by digital will ads.” (Will, Oct 26)</p>
+        </article>
+        <article class="case done">
+          <div class="chead"><h3>Topics that can hurt the brand</h3><span class="vp done">Decided</span></div>
+          <p class="answer">Treat them like the rest. No rule asks you about them.</p>
+          <p class="said-by">“Treat them like the rest.” (Will, Oct 26)</p>
         </article>
       </div>
     </section>
@@ -1319,8 +1334,8 @@ button{font:inherit;color:inherit}
   const LOOK = [
     { n: 37, x: 9.8, verdict: 'pass', label: 'PASS', short: 'People watch this.',
       detail: 'Kyle Talks Money, “How Do Bail Bonds Work? (Explained)”: 33,830 views on a channel with 23,300 subscribers.' },
-    { n: 53, x: 5.6, verdict: 'warn', label: 'WARNING', short: 'People watch it, but as news about the CEO. The brand rule asks you first.',
-      detail: 'CNN, “Why MyPillow CEO decided to pull his ads from Fox News”: 667,095 views.' },
+    { n: 53, x: 5.6, verdict: 'pass', label: 'PASS', short: 'People watch its story.',
+      detail: 'CNN, “Why MyPillow CEO decided to pull his ads from Fox News”: 667,095 views on a channel with about 20 million subscribers.' },
     { n: 1, x: 1.7, verdict: 'fail', label: 'FAIL', short: 'Taken, and weak.',
       detail: 'The Hustle (318,000 subscribers) made “Why Personal Injury Lawyer Billboards are Everywhere” in Dec 2024: 11,095 views, 0.1x its average. The best counted video is a law firm’s own ad.' },
     { n: 45, x: null, verdict: 'warn', label: 'WARNING', short: 'No proof yet.',
