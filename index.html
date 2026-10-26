@@ -32,7 +32,7 @@ button{font:inherit;color:inherit}
 .wrap{max-width:1120px;margin:0 auto;padding:0 24px}
 
 /* Header */
-.top{display:grid;grid-template-columns:minmax(0,1fr) auto;gap:20px 40px;align-items:end;padding-top:44px;padding-bottom:28px}
+.top{display:grid;grid-template-columns:minmax(0,1fr) auto;gap:20px 40px;align-items:end;padding-top:30px;padding-bottom:28px}
 .top h1{font-size:clamp(30px,4.2vw,44px);line-height:1.05;font-weight:700;letter-spacing:-.025em}
 .lede{margin-top:12px;max-width:58ch;font-size:17px;color:var(--muted)}
 .legend{display:grid;gap:10px;font-size:14px;color:var(--muted);padding-bottom:4px}
@@ -160,6 +160,41 @@ button{font:inherit;color:inherit}
   .hint{display:none}
   .actionbar .wrap{justify-content:flex-end}
 }
+/* View switch */
+.viewbar{padding-top:20px}
+.seg{display:inline-flex;gap:4px;padding:4px;background:#E6E9F0;border-radius:999px}
+.seg button{appearance:none;border:0;background:transparent;cursor:pointer;padding:8px 16px;border-radius:999px;font-size:14px;font-weight:600;color:var(--muted);transition:background .2s,color .2s,box-shadow .2s}
+.seg button[aria-selected="true"]{background:var(--card);color:var(--ink);box-shadow:0 1px 2px rgba(21,25,34,.1)}
+.seg button:focus-visible{outline:3px solid rgba(47,91,211,.4);outline-offset:2px}
+
+/* Production pipeline */
+.board{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:14px}
+.col{display:flex;flex-direction:column;gap:10px;min-width:0;padding:14px;background:#E9ECF2;border-radius:var(--r-lg)}
+.col-head{display:flex;align-items:baseline;justify-content:space-between;gap:8px;padding:2px 4px 0}
+.col-head h3{font-size:15px;font-weight:700}
+.col-count{font-size:13px;font-weight:700;color:var(--muted)}
+.col-desc{padding:0 4px 2px;font-size:13px;color:var(--muted)}
+.vcard{padding:14px;background:var(--card);border-radius:var(--r);border-top:3px solid var(--stage);box-shadow:0 1px 2px rgba(21,25,34,.06)}
+.vcard h4{margin:0;font-size:15px;font-weight:600;line-height:1.3;text-wrap:balance}
+.vcard .state{margin-top:6px;font-size:14px;color:var(--muted)}
+.vcard .next{margin-top:8px;font-size:14px}
+.vcard .next b{font-weight:600}
+.links{display:flex;flex-wrap:wrap;gap:6px;margin-top:10px}
+.links a{padding:3px 9px;border-radius:999px;background:var(--accent-soft);color:var(--accent-ink);font-size:12px;font-weight:600;text-decoration:none;transition:background .2s}
+.links a:hover{background:#D7E1F9}
+.stage-raw{--stage:#9AA3B5}
+.stage-edit{--stage:var(--accent)}
+.stage-private{--stage:#B7791F}
+.stage-live{--stage:var(--pass)}
+.side{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:14px;margin-top:16px}
+.box{padding:18px 20px;background:var(--card);border-radius:var(--r-lg);box-shadow:var(--shadow)}
+.box h3{font-size:16px;font-weight:700}
+.box ul{margin:10px 0 0;padding-left:18px}
+.box li{margin:4px 0;font-size:15px;color:var(--muted)}
+.enter-cards .vcard{animation:rise .4s ease-out both;animation-delay:calc(var(--i) * 60ms)}
+@media (max-width:1000px){.board{grid-template-columns:repeat(2,minmax(0,1fr))}}
+@media (max-width:640px){.board,.side{grid-template-columns:minmax(0,1fr)}}
+
 @media (prefers-reduced-motion:reduce){
   *,*::before,*::after{animation:none!important;transition:none!important}
 }
@@ -167,6 +202,14 @@ button{font:inherit;color:inherit}
 </head>
 <body>
 
+<div class="wrap viewbar">
+  <div class="seg" role="tablist" aria-label="Views">
+    <button type="button" role="tab" data-view="verifiers" aria-selected="true">Verifiers</button>
+    <button type="button" role="tab" data-view="pipeline" aria-selected="false">Production pipeline</button>
+  </div>
+</div>
+
+<div id="view-verifiers">
 <header class="wrap top">
   <div class="load">
     <h1>Video verifiers</h1>
@@ -204,6 +247,128 @@ button{font:inherit;color:inherit}
   </main>
 
   <p class="foot">Draft for review, October 26, 2026. The bakery and all example content are made up.</p>
+</div>
+</div>
+
+<div id="view-pipeline" hidden>
+  <header class="wrap top">
+    <div>
+      <h1>Production pipeline</h1>
+      <p class="lede">Every Digital Will YouTube video, where it stands and where its files are. Read on October 26, 2026 from Google Drive and the public channel.</p>
+    </div>
+  </header>
+
+  <div class="wrap">
+    <div class="board" id="board">
+      <section class="col" aria-label="Raw footage">
+        <div class="col-head"><h3>Raw footage</h3><span class="col-count">2</span></div>
+        <p class="col-desc">Recorded. Not edited.</p>
+        <article class="vcard stage-raw" style="--i:0">
+          <h4>Furniture store audit</h4>
+          <p class="state">Reaction takes recorded Aug 15, 2025, face and screen. No edit found.</p>
+          <p class="next"><b>Next:</b> edit it into a full audit video.</p>
+          <div class="links"><a href="https://drive.google.com/drive/folders/1l5ZPpavLYYXS-FG5rqBEfMdCPnPBEkA7" target="_blank" rel="noopener">Raw footage</a></div>
+        </article>
+        <article class="vcard stage-raw" style="--i:1">
+          <h4>Shorts: 3 clips</h4>
+          <p class="state">“Ads Are Done Best Simply”, “Flat Fee” and “Google Doesn’t Learn”. Takes recorded Aug 30, 2025.</p>
+          <p class="next"><b>Next:</b> cut each one into a vertical short.</p>
+          <div class="links"><a href="https://drive.google.com/drive/folders/1-6JvNux1FHtek__EvluhZoeurAhB23y6" target="_blank" rel="noopener">Short-form takes</a></div>
+        </article>
+      </section>
+
+      <section class="col" aria-label="Edited">
+        <div class="col-head"><h3>Edited</h3><span class="col-count">2</span></div>
+        <p class="col-desc">Final export done. Not on YouTube.</p>
+        <article class="vcard stage-edit" style="--i:2">
+          <h4>Crypto trading bot audit</h4>
+          <p class="state">Final export from Sep 4, 2025. 7 title ideas and 4 thumbnail ideas are written.</p>
+          <p class="next"><b>Next:</b> pick a title, make the thumbnail and upload.</p>
+          <div class="links">
+            <a href="https://drive.google.com/file/d/1IdpGPJQprKJaMHvYuy0zL0r_Hc2Kxaf1/edit" target="_blank" rel="noopener">Final export</a>
+            <a href="https://docs.google.com/document/d/1VTSDIpMhC-j7nYwqeD_uD0RDmWo62o_fmK697hmbDio/edit" target="_blank" rel="noopener">Titles and thumbnails</a>
+            <a href="https://docs.google.com/document/d/1svFiGhJhYj6TrvMeImShGz5VjCNZR9b3ZVKBCbVIXBw/edit" target="_blank" rel="noopener">Transcript</a>
+            <a href="https://drive.google.com/drive/folders/1kPTL0zojm47rFB3lIXU0lViyonSvyT4r" target="_blank" rel="noopener">Raw footage</a>
+          </div>
+        </article>
+        <article class="vcard stage-edit" style="--i:3">
+          <h4>Digital nomad business audit</h4>
+          <p class="state">Final export in Drive since Jan 10, 2026. 6 title ideas are written. Thumbnail ideas are only started.</p>
+          <p class="next"><b>Next:</b> pick a title, make the thumbnail and upload.</p>
+          <div class="links">
+            <a href="https://drive.google.com/file/d/1UVQihHOYITKrWfI90vHjPqKUFTxes6lg/edit" target="_blank" rel="noopener">Final export</a>
+            <a href="https://docs.google.com/document/d/1VTSDIpMhC-j7nYwqeD_uD0RDmWo62o_fmK697hmbDio/edit" target="_blank" rel="noopener">Titles and thumbnails</a>
+            <a href="https://drive.google.com/drive/folders/1Wnsftf6DCd0xSWPPPShcIL-efDJKw5kB" target="_blank" rel="noopener">Raw footage</a>
+          </div>
+        </article>
+      </section>
+
+      <section class="col" aria-label="Private on YouTube">
+        <div class="col-head"><h3>Private on YouTube</h3><span class="col-count">1</span></div>
+        <p class="col-desc">Uploaded. Not public.</p>
+        <article class="vcard stage-private" style="--i:4">
+          <h4>Real estate school audit</h4>
+          <p class="state">On YouTube, but not public on Oct 26. Audit notes are in Drive from Sep 2025. No footage folder found.</p>
+          <p class="next"><b>Next:</b> check it in YouTube Studio, then publish it.</p>
+          <div class="links">
+            <a href="https://studio.youtube.com/video/x9qsdEff13w/edit" target="_blank" rel="noopener">Edit in YouTube Studio</a>
+            <a href="https://docs.google.com/document/d/14um2VeFv9jEwiDs1rzwKF5Xe4JflcuJgB9_KnpHuAsM/edit" target="_blank" rel="noopener">Audit notes</a>
+            <a href="https://docs.google.com/document/d/1eMg1S3OFV4zfmhpqIkmLlN3qIJTmTf5slJS6Nt2eLvs/edit" target="_blank" rel="noopener">Prep notes</a>
+          </div>
+        </article>
+      </section>
+
+      <section class="col" aria-label="Published">
+        <div class="col-head"><h3>Published</h3><span class="col-count">2</span></div>
+        <p class="col-desc">Live on the channel.</p>
+        <article class="vcard stage-live" style="--i:5">
+          <h4>This Drink Company Lost $200,000 on Google Ads</h4>
+          <p class="state">Live since Jan 19, 2026.</p>
+          <div class="links">
+            <a href="https://studio.youtube.com/video/VGS5v62pjhE/edit" target="_blank" rel="noopener">Edit in YouTube Studio</a>
+            <a href="https://drive.google.com/drive/folders/1VbpwXFxxrC-ppB1HN_hU8tGOV1jpHATf" target="_blank" rel="noopener">Raw footage</a>
+            <a href="https://drive.google.com/file/d/1yu5aKBCmT4WJVnCOxuWf7275o3hNcUbc/edit" target="_blank" rel="noopener">Draft 2</a>
+            <a href="https://drive.google.com/drive/folders/1r7gYAApFdAojLi0mQs2R_HeKhEz6FSXH" target="_blank" rel="noopener">Editor files</a>
+          </div>
+        </article>
+        <article class="vcard stage-live" style="--i:6">
+          <h4>The Google Ads “Recommended” Setting That Ruins Campaigns</h4>
+          <p class="state">The immigration lawyer audit. Live since Feb 5, 2026.</p>
+          <div class="links">
+            <a href="https://studio.youtube.com/video/h3L0OfoAU-8/edit" target="_blank" rel="noopener">Edit in YouTube Studio</a>
+            <a href="https://drive.google.com/file/d/1keHZO81dwMQchiZzk9IWLjeK0zeL79fg/edit" target="_blank" rel="noopener">Final export</a>
+            <a href="https://drive.google.com/drive/folders/1XGBbeFKzBK1_7WBxZ0idBUDVyPDB7QWY" target="_blank" rel="noopener">Raw footage</a>
+            <a href="https://docs.google.com/document/d/1VTSDIpMhC-j7nYwqeD_uD0RDmWo62o_fmK697hmbDio/edit" target="_blank" rel="noopener">Titles and thumbnails</a>
+          </div>
+        </article>
+      </section>
+    </div>
+
+    <div class="side">
+      <section class="box">
+        <h3>Shared files</h3>
+        <div class="links">
+          <a href="https://drive.google.com/drive/folders/19w_CUes_C7BiTmrEnRR8XVQmT2M63qGk" target="_blank" rel="noopener">Channel folder</a>
+          <a href="https://drive.google.com/drive/folders/1RNLi77pFHQcdWne2WDzYPAGq3g70-cSU" target="_blank" rel="noopener">Finished videos</a>
+          <a href="https://drive.google.com/drive/folders/15_ezc6vMzbiXE_t3VZHjAjM_wN1TRHD-" target="_blank" rel="noopener">Thumbnail face photos</a>
+          <a href="https://docs.google.com/document/d/1VTSDIpMhC-j7nYwqeD_uD0RDmWo62o_fmK697hmbDio/edit" target="_blank" rel="noopener">Titles and thumbnails</a>
+          <a href="https://docs.google.com/document/d/1S8bg3MwnY4fB4NpUqaXjsftDpno0VtHbjndnFPBX4kE/edit" target="_blank" rel="noopener">YouTube links</a>
+          <a href="https://studio.youtube.com/channel/UC_3_EZTgRWn_x_DEOn5l7Og/videos/upload" target="_blank" rel="noopener">YouTube Studio</a>
+        </div>
+      </section>
+      <section class="box">
+        <h3>Not checked yet</h3>
+        <ul>
+          <li>YouTube Studio was not read. Drafts can be missing from this board.</li>
+          <li>The real estate school audit has no footage folder in Drive.</li>
+          <li>One clip in the channel folder has no project: 2025-09-15_13-19-59.mov.</li>
+          <li>The editor files for the drink video are in the editor’s own Drive.</li>
+        </ul>
+      </section>
+    </div>
+
+    <p class="foot">Sources: the “Youtube - Digital Will Ads” folder in Google Drive and the public channel, read October 26, 2026.</p>
+  </div>
 </div>
 
 <div class="actionbar">
@@ -661,6 +826,29 @@ button{font:inherit;color:inherit}
 
   buildSteps();
   renderPanel(true);
+
+  // ---- Views: verifiers and the production pipeline ----
+  const views = { verifiers: $('#view-verifiers'), pipeline: $('#view-pipeline') };
+  const actionbar = $('.actionbar');
+  function showView(name, why) {
+    if (!views[name]) { console.error('[verifiers] unknown view', name); return; }
+    Object.entries(views).forEach(([key, el]) => { el.hidden = key !== name; });
+    document.querySelectorAll('.seg button').forEach(b => b.setAttribute('aria-selected', String(b.dataset.view === name)));
+    actionbar.hidden = name !== 'verifiers';
+    if (name === 'pipeline') {
+      const board = $('#board');
+      board.classList.remove('enter-cards');
+      void board.offsetWidth;
+      board.classList.add('enter-cards');
+    }
+    if (location.hash !== `#${name}`) history.replaceState(null, '', `#${name}`);
+    log('view', { view: name, why, cards: name === 'pipeline' ? document.querySelectorAll('.vcard').length : undefined });
+  }
+  $('.seg').addEventListener('click', e => {
+    const b = e.target.closest('button[data-view]');
+    if (b) showView(b.dataset.view, 'tab');
+  });
+  showView(location.hash === '#pipeline' ? 'pipeline' : 'verifiers', 'init');
   log('init', {
     verifiers: VERIFIERS.length,
     rules: VERIFIERS.reduce((n, v) => n + v.rules.length, 0),
